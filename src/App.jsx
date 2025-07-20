@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Works from "./pages/Works";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 const App = () => {
   const lenisRef = useRef();
@@ -56,6 +57,8 @@ const App = () => {
       <Works />
       <Skills />
       <Contact />
+
+      <Footer/>
     </div>
   );
 };

@@ -10,7 +10,7 @@ import gsap from 'gsap';
 const profileImageSrc = '/nishant.png'; // Path to your profile image in the public folder
 const logoImageSrc = '/logo.png'; // Path to your logo in the public folder (for background)
 
-const ProfileHeroCard = () => {
+const HeroCard = () => {
   const cardRef = useRef(null);
   const profileImageRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -170,4 +170,4 @@ const ProfileHeroCard = () => {
   );
 };
 
-export default ProfileHeroCard;
+export default HeroCard;
