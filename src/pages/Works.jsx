@@ -1,262 +1,352 @@
 // src/pages/Works.jsx
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Power2 } from 'gsap'; // Import Power2 for eases
+import { Github, ExternalLink, Star, Eye } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+// Enhanced SpotlightCard with improved visual effects
+const SpotlightCard = ({ 
+  children, 
+  className = "", 
+  spotlightColor = "rgba(59, 130, 246, 0.15)",
+  gradientColors = ["rgba(59, 130, 246, 0.1)", "rgba(147, 51, 234, 0.1)"]
+}) => {
+  const divRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
 
-// --- SpotlightCard Component (Modified for more intense light effect) ---
-const SpotlightCard = ({ children, className = "", spotlightColor = "rgba(0, 0, 0, 0.25)" }) => {
-    const divRef = useRef(null);
-    const [isFocused, setIsFocused] = useState(false);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [opacity, setOpacity] = useState(0);
+  const handleMouseMove = (e) => {
+    if (!divRef.current || isFocused) return;
+    const rect = divRef.current.getBoundingClientRect();
+    setPosition({ 
+      x: e.clientX - rect.left, 
+      y: e.clientY - rect.top 
+    });
+  };
 
-    const handleMouseMove = (e) => {
-        if (!divRef.current || isFocused) return;
+  const handleFocus = () => { 
+    setIsFocused(true); 
+    setOpacity(1); 
+  };
+  
+  const handleBlur = () => { 
+    setIsFocused(false); 
+    setOpacity(0); 
+  };
+  
+  const handleMouseEnter = () => { 
+    setOpacity(0.9); 
+  };
+  
+  const handleMouseLeave = () => { 
+    setOpacity(0); 
+  };
 
-        const rect = divRef.current.getBoundingClientRect();
-        setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    };
-
-    const handleFocus = () => {
-        setIsFocused(true);
-        setOpacity(0.8); // Increased opacity on focus for more intensity
-    };
-
-    const handleBlur = () => {
-        setIsFocused(false);
-        setOpacity(0);
-    };
-
-    const handleMouseEnter = () => {
-        setOpacity(0.8); // Increased opacity on hover for more intensity
-    };
-
-    const handleMouseLeave = () => {
-        setOpacity(0);
-    };
-
-    return (
-        <div
-            ref={divRef}
-            onMouseMove={handleMouseMove}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            // Applying About.jsx card styling: light glass effect
-            className={`relative rounded-xl shadow-lg bg-white/50 backdrop-blur-xl border border-white/40 overflow-hidden p-6 group ${className}`}
-        >
-            <div
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
-                style={{
-                    opacity,
-                    background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`,
-                }}
-            />
-            {children}
-        </div>
-    );
+  return (
+    <div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`
+        relative rounded-2xl overflow-hidden group cursor-pointer
+        bg-white/80 backdrop-blur-xl border border-white/50
+        shadow-lg hover:shadow-2xl
+        transition-all duration-500 ease-out
+        transform hover:scale-[1.02]
+        ${className}
+      `}
+      style={{
+        backgroundImage: `linear-gradient(135deg, ${gradientColors[0]}, ${gradientColors[1]})`,
+      }}
+    >
+      {/* Spotlight effect */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-out"
+        style={{
+          opacity,
+          background: `radial-gradient(circle 120px at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 70%)`,
+        }}
+      />
+      
+      {/* Animated border gradient */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 blur-sm"></div>
+      </div>
+      
+      <div className="relative z-10 h-full">
+        {children}
+      </div>
+    </div>
+  );
 };
 
-// --- Your Project Data (UPDATED with local image paths) ---
+// Enhanced project data with more details
 const projects = [
-    {
-        id: 1,
-        name: "Aesthetic Portfolio V1",
-        description: "A sleek, modern portfolio showcasing interactive animations and a clean design, built with a focus on user experience.",
-        techStack: ["React", "Tailwind CSS", "Framer Motion", "GSAP"],
-        imageUrl: "/image1.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project1-demo",
-        githubLink: "https://github.com/yourusername/project1-repo",
-    },
-    {
-        id: 2,
-        name: "E-commerce Redesign",
-        description: "Revamped an online store with improved user experience and performance optimizations for faster load times and better conversions.",
-        techStack: ["React", "Express.js", "MongoDB", "Tailwind CSS"],
-        imageUrl: "/image2.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project2-demo",
-        githubLink: "https://github.com/yourusername/project2-repo",
-    },
-    {
-        id: 3,
-        name: "Realtime Chat App",
-        description: "A real-time messaging application with Firebase authentication, enabling seamless communication between users.",
-        techStack: ["React", "Firebase", "Tailwind CSS"],
-        imageUrl: "/image3.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project3-demo",
-        githubLink: "https://github.com/yourusername/project3-repo",
-    },
-    {
-        id: 4,
-        name: "Content Management System",
-        description: "Developed a custom CMS for easy content updates, featuring a responsive admin dashboard for streamlined management.",
-        techStack: ["Next.js", "Prisma", "PostgreSQL", "Tailwind CSS"],
-        imageUrl: "/image4.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project4-demo",
-        githubLink: "https://github.com/yourusername/project4-repo",
-    },
-    {
-        id: 5,
-        name: "Recipe Finder App",
-        description: "An interactive application to discover recipes based on available ingredients, with a clean and intuitive interface.",
-        techStack: ["React", "API Integration", "CSS Modules"],
-        imageUrl: "/image5.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project5-demo",
-        githubLink: "https://github.com/yourusername/project5-repo",
-    },
-    {
-        id: 6,
-        name: "Weather Dashboard",
-        description: "A dynamic weather dashboard providing real-time weather updates and forecasts for various locations.",
-        techStack: ["Vanilla JS", "OpenWeather API", "HTML", "CSS"],
-        imageUrl: "/image6.png", // Path to your image in the public folder
-        liveLink: "https://example.com/project6-demo",
-        githubLink: "https://github.com/yourusername/project6-repo",
-    },
+  {
+    id: 1,
+    name: "Aesthetic Portfolio V2",
+    description: "A modern, interactive portfolio featuring advanced animations, 3D elements, and seamless user experience. Built with cutting-edge web technologies.",
+    techStack: ["React", "Three.js", "Tailwind CSS", "Framer Motion", "GSAP"],
+    imageUrl: "/image1.png",
+    liveLink: "https://demo.example.com/project1",
+    githubLink: "https://github.com/nishant-r/aesthetic-portfolio",
+    stats: { stars: 247, views: 15600 },
+    category: "Frontend",
+    featured: true
+  },
+  {
+    id: 2,
+    name: "E-commerce Redesign",
+    description: "Complete overhaul of an online marketplace with improved UX/UI, performance optimizations, and mobile-first design approach.",
+    techStack: ["Next.js", "TypeScript", "Stripe", "Prisma", "TailwindCSS"],
+    imageUrl: "/image2.png",
+    liveLink: "https://demo.example.com/project2",
+    githubLink: "https://github.com/nishant-r/ecommerce-redesign",
+    stats: { stars: 189, views: 8900 },
+    category: "Full-stack"
+  },
+  {
+    id: 3,
+    name: "Real-time Collaboration Hub",
+    description: "A comprehensive collaboration platform with live editing, video calls, and project management features for distributed teams.",
+    techStack: ["React", "Node.js", "Socket.io", "WebRTC", "MongoDB"],
+    imageUrl: "/image3.png",
+    liveLink: "https://demo.example.com/project3",
+    githubLink: "https://github.com/nishant-r/collaboration-hub",
+    stats: { stars: 156, views: 6700 },
+    category: "Full-stack"
+  },
+  {
+    id: 4,
+    name: "Smart Content CMS",
+    description: "AI-powered content management system with automated SEO optimization, content suggestions, and advanced analytics dashboard.",
+    techStack: ["Next.js", "OpenAI API", "Prisma", "PostgreSQL", "Vercel"],
+    imageUrl: "/image4.png",
+    liveLink: "https://demo.example.com/project4",
+    githubLink: "https://github.com/nishant-r/smart-cms",
+    stats: { stars: 203, views: 12300 },
+    category: "Full-stack"
+  },
+  {
+    id: 5,
+    name: "Recipe Discovery Engine",
+    description: "Intelligent recipe finder using machine learning to suggest meals based on ingredients, dietary preferences, and nutritional goals.",
+    techStack: ["React", "Python", "TensorFlow", "FastAPI", "Redis"],
+    imageUrl: "/image5.png",
+    liveLink: "https://demo.example.com/project5",
+    githubLink: "https://github.com/nishant-r/recipe-engine",
+    stats: { stars: 124, views: 5400 },
+    category: "AI/ML"
+  },
+  {
+    id: 6,
+    name: "Weather Analytics Platform",
+    description: "Advanced weather visualization platform with predictive analytics, climate data insights, and interactive geographical mapping.",
+    techStack: ["Vue.js", "D3.js", "Node.js", "InfluxDB", "Docker"],
+    imageUrl: "/image6.png",
+    liveLink: "https://demo.example.com/project6",
+    githubLink: "https://github.com/nishant-r/weather-analytics",
+    stats: { stars: 98, views: 4200 },
+    category: "Data Viz"
+  },
 ];
 
 const Works = () => {
-    const sectionRef = useRef(null);
-    const scrollContainerRef = useRef(null); // Ref for the horizontal scroll container
-    const triggerRef = useRef(null); // Ref for the ScrollTrigger pin
-
-    useEffect(() => {
-        // Animation for the section title and description
-        gsap.fromTo(sectionRef.current.children[0],
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1, y: 0, duration: 0.8, ease: Power2.easeOut,
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 80%",
-                    toggleActions: "play none none reverse",
-                }
-            }
-        );
-
-        // GSAP for Horizontal Scrolling (SMOOTHED)
-        const sections = gsap.utils.toArray(".project-card-item");
-        // Add will-change for GPU acceleration
-        sections.forEach((el) => {
-            el.style.willChange = "transform";
-        });
-
-        let scrollTween = gsap.to(sections, {
-            xPercent: () => -100 * (sections.length - 1),
-            ease: "power1.inOut", // Smoother ease
-            scrollTrigger: {
-                trigger: triggerRef.current,
-                pin: true,
-                scrub: 0.25, // Lower scrub for more responsive smoothness
-                end: () => "+=" + triggerRef.current.offsetWidth,
-                anticipatePin: 1,
-                // snap: {
-                //     snapTo: 1 / (sections.length - 1),
-                //     duration: { min: 0.2, max: 0.8 },
-                //     delay: 0.1,
-                //     ease: "power2.inOut"
-                // }
-            }
-        });
-
-        // Clean up ScrollTriggers on component unmount
-        return () => {
-            if (scrollTween) {
-                scrollTween.scrollTrigger.kill();
-            }
-            ScrollTrigger.getAll().forEach(st => st.kill());
-        };
-    }, []);
-
-    return (
-        <motion.section
-            id="works"
-            ref={sectionRef}
-            // Transparent background for the section
-            className="relative w-full text-gray-900"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.8 }}
+  return (
+    <motion.section
+      id="works"
+      className="relative w-full text-gray-900 overflow-hidden flex flex-col justify-start items-center min-h-screen" 
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 1 }}
+    >
+      {/* Enhanced Header Section */}
+      {/* Adjusted pt and pb for better mobile spacing */}
+      <div className="max-w-7xl w-full mx-auto text-center pt-16 pb-10 px-4 sm:pt-20 md:pt-24 lg:pb-12">
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-            {/* Main Heading and Description */}
-            <div className="max-w-6xl w-full mx-auto text-center pt-20 pb-16 px-4">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight tracking-tight">
-                    My Creative <span className="text-sky-600">Works</span>
-                </h2>
-                <p className="text-lg text-gray-700 max-w-3xl mx-auto font-light leading-relaxed">
-                    Explore a selection of projects where design meets functionality, bringing modern digital experiences to life. Scroll horizontally to see more!
-                </p>
-            </div>
+          {/* Adjusted font sizes for responsiveness */}
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
+            Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Works</span>
+          </h2>
+          {/* Adjusted font size and max-width for readability on smaller screens */}
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-light leading-relaxed px-2">
+            Discover a curated collection of projects where innovative design meets cutting-edge technology, 
+            creating exceptional digital experiences that push boundaries.
+          </p>
+        </motion.div>
 
-            {/* --- Horizontal Scroll Container --- */}
-            <div ref={triggerRef} className="pin-spacer relative h-screen w-full flex items-center overflow-hidden">
-                <div ref={scrollContainerRef} className="horizontal-scroll-container flex items-center h-full px-16" style={{ willChange: 'transform' }}>
-                    {/* Map through projects to create cards */}
-                    {projects.map((project) => (
-                        <div
-                            key={project.id}
-                            className="project-card-item flex-shrink-0 w-[calc(100vw-8rem)] md:w-[600px] lg:w-[450px] h-[calc(100vh-10rem)]
-                                       mx-8 transform transition-transform duration-300"
-                        >
-                            {/* Using the updated SpotlightCard with light glass styling and increased intensity */}
-                            <SpotlightCard className="h-full flex flex-col">
-                                <img src={project.imageUrl} alt={project.name} className="w-full h-48 object-cover object-center rounded-lg mb-4" />
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">{project.name}</h3>
-                                <p className="text-gray-700 text-base mb-4 line-clamp-3 flex-grow">{project.description}</p>
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    {project.techStack.map((tech, idx) => (
-                                        <span key={idx} className="bg-sky-50 text-sky-800 text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                                <div className="flex justify-start gap-4 mt-auto pt-4 border-t border-gray-100">
-                                    <a
-                                        href={project.liveLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full 
-                                                   text-white bg-sky-600 hover:bg-sky-700 transition-colors duration-200 shadow-md
-                                                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
-                                    >
-                                        <ExternalLink className="w-4 h-4 mr-2" /> Live Demo
-                                    </a>
-                                    <a
-                                        href={project.githubLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center px-5 py-2 border border-gray-300 text-base font-medium rounded-full 
-                                                   text-gray-800 bg-white hover:bg-gray-50 transition-colors duration-200 shadow-md
-                                                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-                                    >
-                                        <Github className="w-4 h-4 mr-2" /> GitHub
-                                    </a>
-                                </div>
-                            </SpotlightCard>
-                        </div>
-                    ))}
+        {/* Category Filter Pills */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 px-4" // Adjusted gap and added horizontal padding
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          {['All', 'Frontend', 'Full-stack', 'AI/ML', 'Data Viz'].map((category) => (
+            <span 
+              key={category}
+              className="px-3 py-1.5 sm:px-4 sm:py-2 bg-white/60 backdrop-blur-sm border border-white/40 rounded-full text-xs sm:text-sm font-medium text-gray-700 hover:bg-white/80 transition-all duration-200 cursor-pointer whitespace-nowrap" // Adjusted padding and font size, added whitespace-nowrap
+            >
+              {category}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Project Grid */}
+      {/* Added xl breakpoint for larger screens, increased gap slightly */}
+      <div className="w-full max-w-7xl mx-auto px-4 pb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8">
+        {projects.map((project, index) => (
+          <motion.div
+            key={project.id}
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: index * 0.1 }} // Staggered entry animation
+          >
+            <SpotlightCard 
+              className="h-full flex flex-col p-0" 
+              spotlightColor="rgba(59, 130, 246, 0.12)"
+              gradientColors={[
+                project.featured ? "rgba(59, 130, 246, 0.08)" : "rgba(148, 163, 184, 0.05)",
+                project.featured ? "rgba(147, 51, 234, 0.08)" : "rgba(99, 102, 241, 0.05)"
+              ]}
+            >
+              {/* Project Image with Overlay */}
+              {/* Ensure image height is consistent or aspect-ratio based */}
+              <div className="relative h-48 sm:h-56 lg:h-48 xl:h-56 overflow-hidden rounded-t-2xl">
+                <img 
+                  src={project.imageUrl} 
+                  alt={project.name} 
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" 
+                />
+                {project.featured && (
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold flex items-center">
+                    <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1 fill-current" />
+                    Featured
+                  </div>
+                )}
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/50 backdrop-blur-sm text-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-lg text-xs font-medium">
+                  {project.category}
                 </div>
-            </div>
+                
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
 
-            {/* --- Call to Action Button --- */}
-            <div className="text-center py-20 px-6">
-                <h3 className="text-4xl font-bold mb-4">Have a project in mind?</h3>
-                <p className="text-lg text-gray-600 mb-8">Let’s build something together.</p>
-                <a href="#contact" className="inline-block bg-indigo-600 text-white px-8 py-4 rounded-full font-medium hover:bg-indigo-700 transition">
-                    Contact Me
-                </a>
-            </div>
-        </motion.section>
-    );
+              {/* Enhanced Content Section */}
+              {/* Adjusted padding for smaller screens */}
+              <div className="p-4 sm:p-6 flex flex-col flex-grow">
+                <div className="flex-grow">
+                  {/* Adjusted font sizes for responsiveness */}
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {project.name}
+                  </h3>
+                  
+                  {/* Adjusted line-clamp for consistency */}
+                  <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 line-clamp-3 leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  {/* Stats */}
+                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm text-gray-500">
+                    <div className="flex items-center">
+                      <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 fill-yellow-400 text-yellow-400" />
+                      {project.stats.stars}
+                    </div>
+                    <div className="flex items-center">
+                      <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1" />
+                      {project.stats.views.toLocaleString()}
+                    </div>
+                  </div>
+
+                  {/* Enhanced Tech Stack */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
+                    {project.techStack.map((tech, idx) => (
+                      <span 
+                        key={idx} 
+                        className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border border-blue-200/50 hover:border-blue-300 transition-colors duration-200 whitespace-nowrap" // Adjusted padding, font size, added whitespace-nowrap
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Enhanced Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-auto pt-3 sm:pt-4 border-t border-gray-100">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2 sm:py-2.5 text-sm font-semibold rounded-xl
+                               text-white bg-gradient-to-r from-blue-600 to-purple-600 
+                               hover:from-blue-700 hover:to-purple-700 
+                               transform hover:scale-105 transition-all duration-200 
+                               shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  >
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Live Demo
+                  </a>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center px-4 py-2 sm:py-2.5 border border-gray-300 text-sm font-semibold rounded-xl
+                               text-gray-700 bg-white hover:bg-gray-50 
+                               transform hover:scale-105 transition-all duration-200 
+                               shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                  >
+                    <Github className="w-4 h-4 mr-2" />
+                    Code
+                  </a>
+                </div>
+              </div>
+            </SpotlightCard>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Enhanced CTA Section */}
+      <motion.div 
+        className="text-center py-16 px-6 max-w-2xl sm:max-w-4xl mx-auto" // Adjusted padding and max-width
+        initial={{ y: 50, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+          Ready to Build Something Amazing?
+        </h3>
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-10 leading-relaxed px-2">
+          Let's collaborate and bring your vision to life with cutting-edge technology and creative design.
+        </p>
+        <motion.a 
+          href="#contact" 
+          className="inline-flex items-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl 
+                      hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 
+                      shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-base sm:text-lg" // Adjusted padding and font size
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Start a Project
+          <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+        </motion.a>
+      </motion.div>
+    </motion.section>
+  );
 };
 
 export default Works;
