@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/* Import Roboto Flex from Google Fonts */
 * {
   box-sizing: border-box;
 }

@@ -1,93 +1,32 @@
 // src/components/ProfileHeroCard.jsx
-import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { Instagram } from 'lucide-react';
+import React from "react"; // useRef and useState are no longer strictly needed for this version
+import { motion } from "framer-motion";
+import { Instagram } from 'lucide-react'; // Import the Instagram icon
 
 // Import your profile image and logo
-const profileImageSrc = '/nishant.png';
-const logoImageSrc = '/logo.png';
-
-const springValues = {
-  damping: 30,
-  stiffness: 100,
-  mass: 2,
-};
+const profileImageSrc = '/nishant.png'; // Path to your profile image in the public folder
+const logoImageSrc = '/logo.png'; // Path to your logo in the public folder (for background)
 
 const ProfileHeroCard = () => {
-  const cardRef = useRef(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useMotionValue(0), springValues);
-  const rotateY = useSpring(useMotionValue(0), springValues);
-  const rotateZ = useSpring(useMotionValue(0), {
-    damping: 20,
-    stiffness: 80,
-    mass: 1.5,
-  });
-  const scale = useSpring(1, springValues);
-
-  function handleMouseMove(e) {
-    if (!cardRef.current) return;
-
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const offsetX = e.clientX - centerX;
-    const offsetY = e.clientY - centerY;
-
-    const newRotateX = (offsetY / (rect.height / 2)) * -8;
-    const newRotateY = (offsetX / (rect.width / 2)) * 8;
-    const newRotateZ = (offsetX / (rect.width / 2)) * 5;
-
-    rotateX.set(newRotateX);
-    rotateY.set(newRotateY);
-    rotateZ.set(newRotateZ);
-
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-
-    scale.set(1.03);
-  }
-
-  function handleMouseLeave() {
-    rotateX.set(0);
-    rotateY.set(0);
-    rotateZ.set(0);
-    scale.set(1);
-    mouseX.set(0);
-    mouseY.set(0);
-  }
+  // Removed useRef, useMotionValue, useSpring, and all handleMouseMove/Leave functions.
 
   const initialLoadVariants = {
-    hidden: { opacity: 0, scale: 0.7, y: 50 },
-    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 50 }, // Keep initial slight lift
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
   return (
     <motion.div
-      ref={cardRef}
-      className="relative rounded-3xl shadow-2xl p-6 md:p-10 flex flex-col items-center justify-center
-                 w-80 h-[480px] md:w-96 md:h-[520px]
-                 bg-white/5 backdrop-blur-2xl border border-white/20 // Adjusted for more transparency
-                 cursor-pointer overflow-hidden [perspective:1000px]
+      className="relative rounded-2xl shadow-xl p-6 flex flex-col items-center justify-center
+                 w-72 h-[420px] md:w-80 md:h-[450px] // Made smaller
+                 bg-white/5 backdrop-blur-xl border border-white/20 // Glassmorphism kept subtle
+                 cursor-pointer overflow-hidden
                  "
       variants={initialLoadVariants}
       initial="hidden"
       animate="visible"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        rotateZ,
-        scale,
-        // Increased shadow on hover to make it pop more when transparent
-        boxShadow: scale.get() > 1 ? "0px 25px 60px rgba(0, 0, 0, 0.4)" : "0px 10px 30px rgba(0, 0, 0, 0.2)",
-        transition: 'box-shadow 0.3s ease-out'
-      }}
+      whileHover={{ scale: 1.02, boxShadow: "0px 18px 45px rgba(0, 0, 0, 0.3)" }} // Subtle scale and shadow on hover
+      transition={{ type: "spring", stiffness: 300, damping: 25 }} // Smooth spring transition for hover
     >
       {/* Subtle radial gradient for depth and light reflection (like glass) */}
       <div className="absolute inset-0 z-0 opacity-20"
@@ -100,13 +39,13 @@ const ProfileHeroCard = () => {
       <img
         src={logoImageSrc}
         alt="Nishant's Logo Background"
-        className="absolute inset-0 w-full h-full object-contain p-12 opacity-3 pointer-events-none z-0" // Reduced opacity further
+        className="absolute inset-0 w-full h-full object-contain p-12 opacity-3 pointer-events-none z-0"
       />
 
       {/* Profile Image */}
       <motion.div
-        className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden z-10 mb-6 border-4 border-white/40 shadow-xl" // Border more transparent, shadow stronger
-        whileHover={{ scale: 1.05 }}
+        className="relative w-36 h-36 md:w-40 md:h-40 rounded-full overflow-hidden z-10 mb-5 border-3 border-white/50 shadow-lg" // Profile image slightly smaller, border slightly more opaque
+        whileHover={{ scale: 1.05 }} // Independent hover scale for image
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
       >
         <img
@@ -118,36 +57,36 @@ const ProfileHeroCard = () => {
 
       {/* User Info */}
       <div className="text-center z-20">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1"> {/* Smaller text */}
           Nishant
         </h2>
-        <p className="text-lg md:text-xl text-sky-600 font-semibold mb-4">
+        <p className="text-md md:text-lg text-sky-600 font-semibold mb-3"> {/* Smaller text */}
           The Web Architect
         </p>
 
         {/* Instagram Handle & Link */}
-        <div className="flex items-center justify-center gap-2 mb-6 text-gray-700">
-          <Instagram size={20} />
+        <div className="flex items-center justify-center gap-2 mb-5 text-gray-700"> {/* Smaller margin */}
+          <Instagram size={18} /> {/* Slightly smaller icon */}
           <a
             href="https://www.instagram.com/_nishant_o19?igsh=MWFnaXQ3aGYwdGlyNg=="
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium"
+            className="text-sm md:text-base text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium" // Smaller text
           >
             _nishant_o19
           </a>
         </div>
 
         {/* Tagline / Status */}
-        <p className="text-md md:text-lg text-gray-600 font-light max-w-[280px] leading-relaxed mx-auto">
+        <p className="text-sm md:text-base text-gray-600 font-light max-w-[250px] leading-relaxed mx-auto"> {/* Smaller text and max-width */}
           Crafting smooth, modern, and smart digital experiences.
         </p>
       </div>
 
-      {/* Mobile Warning */}
-      <div className="absolute top-4 text-center text-xs text-gray-500 block sm:hidden px-4">
-        Tilt effect best viewed on desktop.
-      </div>
+      {/* Mobile Warning - can be removed if tilt effect is no longer primary */}
+      {/* <div className="absolute top-4 text-center text-xs text-gray-500 block sm:hidden px-4">
+        Subtle hover effects.
+      </div> */}
     </motion.div>
   );
 };

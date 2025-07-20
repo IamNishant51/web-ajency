@@ -1,6 +1,6 @@
-
 import HeroCard from "./HeroCard";
 import { motion } from 'framer-motion';
+import TrueFocus from './TrueFocus'; // Import the TrueFocus component
 
 const Hero = () => {
   const textVariants = {
@@ -21,17 +21,28 @@ const Hero = () => {
 
         {/* Text Content */}
         <div className="text-center md:text-left max-w-2xl">
-          <motion.h1
-            // Applied custom font class
-            className="font-heading text-5xl md:text-6xl font-bold text-black mb-4 leading-tight"
+          {/* Replaced h1 with TrueFocus component */}
+          <motion.div
             variants={textVariants}
             initial="hidden"
             animate="visible"
+            className="font-heading text-5xl md:text-6xl font-bold text-black mb-4 leading-tight"
+            // We'll let TrueFocus handle its internal animations and styles
+            // The `initial` and `animate` here will apply to the container of TrueFocus
           >
-            Nishant — The Web Architect
-          </motion.h1>
+            <TrueFocus
+              sentence="Nishant — The Web Architect"
+              blurAmount={4} // Adjust blur intensity
+              animationDuration={0.4} // How fast the focus box moves/blurs
+              pauseBetweenAnimations={0.8} // How long it pauses on each word
+              // You can customize colors here for branding
+              borderColor="#007bff" // A vibrant blue
+              glowColor="rgba(0, 123, 255, 0.6)" // Matching blue glow
+              // manualMode={true} // Uncomment to enable hover interaction instead of automatic cycle
+            />
+          </motion.div>
+
           <motion.p
-            // Applied custom font class
             className="font-body text-xl md:text-2xl text-gray-500 mb-6"
             variants={textVariants}
             initial="hidden"
@@ -41,7 +52,6 @@ const Hero = () => {
             Crafting smooth, modern, and smart digital experiences.
           </motion.p>
           <motion.p
-            // Applied custom font class
             className="font-body text-base md:text-lg text-gray-700 max-w-lg mx-auto md:mx-0"
             variants={textVariants}
             initial="hidden"
@@ -50,18 +60,6 @@ const Hero = () => {
           >
             A modern web developer passionate about frontend magic and building interactive experiences. Young, growing, and always learning—that's my strength!
           </motion.p>
-          {/* Example button with font */}
-          {/*
-          <motion.button
-            className="mt-8 px-6 py-3 bg-black text-white rounded-lg shadow-lg hover:bg-[#1f1f1f] transition duration-300 font-button"
-            variants={textVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ ...textVariants.visible.transition, delay: 1.0 }}
-          >
-            Explore My Work
-          </motion.button>
-          */}
         </div>
       </div>
     </div>
