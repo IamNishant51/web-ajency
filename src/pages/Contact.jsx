@@ -27,7 +27,7 @@ const Contact = () => {
 
     try {
       // --- This is the updated part, correctly sending data to your backend ---
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch('https://nishantxd-backend.onrender.com/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
