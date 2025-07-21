@@ -1,10 +1,6 @@
 /* src/index.css or your main global CSS file */
 @import "tailwindcss";
 
-/* --- Font Loading Optimization --- */
-/* Add Google Fonts import with 'display=swap' to prevent text invisibility */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 * {
   box-sizing: border-box;
 }
