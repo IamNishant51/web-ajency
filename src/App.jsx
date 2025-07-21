@@ -1,24 +1,27 @@
 // src/App.jsx
 import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
-// Removed motion import because it's now handled within individual page components
 import Hero from "./components/Hero";
 import NavBar from "./components/NavBar";
-// Removed SvgSeparator import as it's now imported in page components
 import InteractiveBackground from "./components/InteractiveBackground";
 
-// Import the new page components from the 'pages' folder
 import About from "./pages/About";
 import Works from "./pages/Works";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 
 const App = () => {
   const lenisRef = useRef();
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const loadContentTimer = setTimeout(() => {
+      setIsLoading(false);
+    }, 7000); // 7 seconds for testing, adjust as needed
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -39,26 +42,27 @@ const App = () => {
     requestAnimationFrame(raf);
 
     return () => {
+      clearTimeout(loadContentTimer);
       lenis.destroy();
     };
   }, []);
 
   return (
     <div className="lenis lenis-smooth" style={{ position: 'relative', zIndex: 1 }}>
-      {/* Interactive Background - fixed at zIndex: -1 */}
+      <Loader isLoading={isLoading} />
       <InteractiveBackground scrollProgress={scrollProgress} />
 
-      <NavBar />
-
-      <Hero />
-
-      {/* Render the new page components */}
-      <About />
-      <Works />
-      <Skills />
-      <Contact />
-
-      <Footer/>
+      {!isLoading && (
+        <>
+          <NavBar />
+          <Hero />
+          <About />
+          <Works />
+          <Skills />
+          <Contact />
+          <Footer />
+        </>
+      )}
     </div>
   );
 };
