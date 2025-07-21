@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { Mail, Instagram, Linkedin, Github } from 'lucide-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import emailjs from '@emailjs/browser'; // Uncomment if using EmailJS
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -27,30 +26,37 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // --- EmailJS Integration (Uncomment and configure when ready) ---
-      // For EmailJS, you typically need to initialize it once, e.g., in your App.js or index.js
-      // emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual Public Key
-      // await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData);
-
-      // --- Placeholder for demonstration (remove in production) ---
-      console.log('Form Data:', formData);
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-      // --- End Placeholder ---
-
-      toast.success('Message sent successfully! I\'ll get back to you soon.', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored", // Using 'colored' for better visibility with your theme
+      // --- This is the updated part, correctly sending data to your backend ---
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+
+      const result = await response.json();
+
+      if (response.ok) { // Check if the HTTP status code is 2xx
+        toast.success(result.message || 'Message sent successfully! I\'ll get back to you soon.', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+      } else {
+        // Handle server-side errors
+        throw new Error(result.error || 'Failed to send message from server.');
+      }
+
     } catch (error) {
       console.error('FAILED...', error);
-      toast.error('Failed to send message. Please try again or reach out directly.', {
+      toast.error(error.message || 'Failed to send message. Please try again or reach out directly.', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -112,8 +118,8 @@ const Contact = () => {
         {/* Contact Form Section */}
         <motion.div
           className="p-5 sm:p-6 md:p-8 rounded-2xl
-                     bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl
-                     flex flex-col items-center"
+                      bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl
+                      flex flex-col items-center"
           variants={itemVariants}
           transition={{ delay: 0.4 }}
         >
@@ -129,7 +135,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-3 py-2 border border-gray-300/[0.4] rounded-md bg-white/[0.2] text-gray-900 placeholder-gray-500
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
               />
             </div>
             <div>
@@ -142,7 +148,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-3 py-2 border border-gray-300/[0.4] rounded-md bg-white/[0.2] text-gray-900 placeholder-gray-500
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
               />
             </div>
             <div>
@@ -154,7 +160,7 @@ const Contact = () => {
                 value={formData.subject}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300/[0.4] rounded-md bg-white/[0.2] text-gray-900 placeholder-gray-500
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base"
               />
             </div>
             <div>
@@ -167,14 +173,14 @@ const Contact = () => {
                 rows="4"
                 required
                 className="w-full px-3 py-2 border border-gray-300/[0.4] rounded-md bg-white/[0.2] text-gray-900 placeholder-gray-500
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base resize-y"
+                                focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-sm sm:text-base resize-y"
               ></textarea>
             </div>
             <motion.button
               type="submit"
               className="w-full inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg
-                         hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300
-                         shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-sm sm:text-base"
+                                hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300
+                                shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={isSubmitting}
@@ -187,7 +193,7 @@ const Contact = () => {
         {/* Other Contact Methods Section */}
         <motion.div
           className="p-5 sm:p-6 md:p-8 rounded-2xl
-                     bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl flex flex-col items-center justify-center"
+                      bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl flex flex-col items-center justify-center"
           variants={itemVariants}
           transition={{ delay: 0.6 }}
         >
