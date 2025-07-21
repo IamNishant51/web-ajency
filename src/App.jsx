@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     const loadContentTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 7000); // 7 seconds for testing, adjust as needed
+    }, 2000);
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -55,11 +55,30 @@ const App = () => {
       {!isLoading && (
         <>
           <NavBar />
-          <Hero />
-          <About />
-          <Works />
-          <Skills />
-          <Contact />
+          
+          {/* Main content sections with proper IDs for navigation */}
+          <main>
+            <section id="home">
+              <Hero />
+            </section>
+            
+            <section id="about">
+              <About />
+            </section>
+            
+            <section id="works">
+              <Works />
+            </section>
+            
+            <section id="skills">
+              <Skills />
+            </section>
+            
+            <section id="contact">
+              <Contact />
+            </section>
+          </main>
+          
           <Footer />
         </>
       )}
