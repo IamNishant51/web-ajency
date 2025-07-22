@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.skills-card{
+  color: #0f172a;
+}
+
 /* IMPORTANT: These lines are REMOVED or commented out to allow Lenis to manage scrolling */
 html {
   min-height: 100vh;
@@ -87,7 +91,7 @@ h6 {
   letter-spacing: 0.01em;
   line-height: 1.15;
   color: #18181b;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 0 #222;
+  /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 0 #222; */
 }
 html.dark h1,
 html.dark h2,
@@ -121,7 +125,7 @@ p,
   font-weight: 400;
   line-height: 1.7;
   color: #23272f;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 0 #222;
+  /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 0 #222; */
 }
 html.dark body,
 html.dark p,
