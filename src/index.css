@@ -5,8 +5,24 @@
   box-sizing: border-box;
 }
 
-.skills-card{
-  color: #0f172a;
+.works-cards h1,
+.works-cards h2,
+.works-cards h3,
+.works-cards h4,
+.works-cards h5,
+.works-cards h6,
+.works-cards p {
+  color: #000 !important;
+}
+
+html.dark .works-cards h1,
+html.dark .works-cards h2,
+html.dark .works-cards h3,
+html.dark .works-cards h4,
+html.dark .works-cards h5,
+html.dark .works-cards h6,
+html.dark .works-cards p {
+  color: #000 !important;
 }
 
 /* IMPORTANT: These lines are REMOVED or commented out to allow Lenis to manage scrolling */
@@ -46,28 +62,7 @@ html.dark body {
     width: 100vw;
     z-index: 1000;
   }
-  /* Reduce heavy effects on mobile for performance */
-  .backdrop-blur-md,
-  .backdrop-blur,
-  .backdrop-blur-sm,
-  .shadow-xl,
-  .shadow-lg,
-  .shadow-md,
-  .shadow,
-  .blur,
-  .blur-sm {
-    backdrop-filter: none !important;
-    box-shadow: none !important;
-    filter: none !important;
-  }
-  /* Optional: reduce border and background opacity for glassmorphism */
-  .bg-white\/\[0\.1\],
-  .bg-white\/10,
-  .bg-white\/\[0\.05\],
-  .bg-white\/20 {
-    background: #fff !important;
-    opacity: 0.98 !important;
-  }
+  /* (Removed) No longer disabling glassmorphism and blur on mobile */
 }
 
 /* Custom Font Definitions */

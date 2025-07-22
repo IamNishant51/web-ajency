@@ -161,7 +161,7 @@ const Works = () => {
     <motion.section
       id="works"
       // Removed the background gradient here: bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50
-      className="relative w-full text-gray-900 overflow-hidden flex flex-col justify-start items-center min-h-screen" 
+      className="works-cards relative w-full text-gray-900 overflow-hidden flex flex-col justify-start items-center min-h-screen" 
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}

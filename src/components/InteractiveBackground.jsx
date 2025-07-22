@@ -268,10 +268,10 @@ const InteractiveBackground = ({ scrollProgress }) => {
   // Dynamic background color: black in dark mode, white in light mode
   const [backgroundColor, setBackgroundColor] = useState("#F5F5F7");
   const [cameraZ, setCameraZ] = useState(2);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateBg = () => {
-      // Check for Tailwind dark mode class on <html>
       if (document.documentElement.classList.contains('dark')) {
         setBackgroundColor("#111112");
       } else {
@@ -279,7 +279,6 @@ const InteractiveBackground = ({ scrollProgress }) => {
       }
     };
     updateBg();
-    // Listen for theme changes (NavBar sets class on <html>)
     const observer = new MutationObserver(updateBg);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
@@ -289,11 +288,15 @@ const InteractiveBackground = ({ scrollProgress }) => {
     const handleResize = () => {
       const w = window.innerWidth;
       setCameraZ(w < 768 ? 3 : w < 1024 ? 2.5 : 2);
+      setIsMobile(w < 768);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // On mobile, disable scrollProgress animation (set to 0)
+  const effectiveScrollProgress = isMobile ? 0 : scrollProgress;
 
   return (
     <div
@@ -313,7 +316,7 @@ const InteractiveBackground = ({ scrollProgress }) => {
         <directionalLight position={[2, 2, 2]} intensity={1.2} />
 
         <Suspense fallback={null}>
-          <InteractiveParticles scrollProgress={scrollProgress} />
+          <InteractiveParticles scrollProgress={effectiveScrollProgress} />
         </Suspense>
 
         <EffectComposer>
