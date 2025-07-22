@@ -10,6 +10,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { FaHome, FaUserTie, FaLaptopCode, FaTools, FaEnvelope } from 'react-icons/fa';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 
 // Mobile Dock Item Component
@@ -159,6 +160,24 @@ const NavBar = ({
 }) => {
   const mouseX = useMotionValue(Infinity);
   const [isMobile, setIsMobile] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
+  });
+
+  // Theme effect
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
 
   // Check for mobile screen size
   useEffect(() => {
@@ -197,15 +216,22 @@ const NavBar = ({
       label: "Contact",
       onClick: () => navigateToSection('contact'),
     },
+    {
+      icon: theme === 'dark' ? (
+        <FaSun className="text-xl text-yellow-400" />
+      ) : (
+        <FaMoon className="text-xl text-gray-700" />
+      ),
+      label: theme === 'dark' ? 'Light Mode' : 'Dark Mode',
+      onClick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+      className: 'ios-darkmode-btn',
+    },
   ];
 
   // Mobile Navigation - Full Dock (visible on screens < 768px)
   if (isMobile) {
     return (
-      // Added z-[999] for high z-index
-      // pointer-events-none on the wrapper to allow clicks *through* the empty space of the dock
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[999] px-4 w-full max-w-sm pointer-events-none">
-        {/* pointer-events-auto on the inner div to make the buttons clickable */}
         <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl border border-gray-200/20 
                         rounded-2xl px-3 py-3 shadow-xl gap-2 overflow-x-auto scrollbar-hide pointer-events-auto">
           {items.map((item, index) => (
@@ -213,7 +239,7 @@ const NavBar = ({
               key={index}
               onClick={item.onClick}
               label={item.label}
-              className="flex-shrink-0"
+              className={`flex-shrink-0 ${item.className || ''}`}
             >
               {item.icon}
             </MobileDockItem>
@@ -225,8 +251,6 @@ const NavBar = ({
 
   // Desktop Navigation - Original Dock with Magnification (visible on screens >= 768px)
   return (
-    // Added z-[999] for high z-index
-    // pointer-events-none on the wrapper
     <div
       className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl p-2
                   bg-white/10 backdrop-blur-xl shadow-lg z-[999] overflow-hidden border border-gray-200/20 pointer-events-none"
@@ -240,7 +264,6 @@ const NavBar = ({
       role="toolbar"
       aria-label="Application dock"
     >
-      {/* pointer-events-auto on the inner div */}
       <div className="flex items-end gap-4 pointer-events-auto">
         {items.map((item, index) => (
           <DockItem

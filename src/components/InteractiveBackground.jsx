@@ -265,10 +265,25 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
 
 // --- InteractiveBackground ---
 const InteractiveBackground = ({ scrollProgress }) => {
-  // Hardcoded background color for a subtle off-white theme
-  const backgroundColor = "#F5F5F7";
-
+  // Dynamic background color: black in dark mode, white in light mode
+  const [backgroundColor, setBackgroundColor] = useState("#F5F5F7");
   const [cameraZ, setCameraZ] = useState(2);
+
+  useEffect(() => {
+    const updateBg = () => {
+      // Check for Tailwind dark mode class on <html>
+      if (document.documentElement.classList.contains('dark')) {
+        setBackgroundColor("#111112");
+      } else {
+        setBackgroundColor("#F5F5F7");
+      }
+    };
+    updateBg();
+    // Listen for theme changes (NavBar sets class on <html>)
+    const observer = new MutationObserver(updateBg);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -288,8 +303,9 @@ const InteractiveBackground = ({ scrollProgress }) => {
         left: 0,
         width: "100vw",
         height: "100vh",
-        zIndex: -1, // Ensures the background is behind all other content
-        background: backgroundColor, // Using the hardcoded off-white background color
+        zIndex: -1,
+        background: backgroundColor,
+        transition: 'background 0.4s',
       }}
     >
       <Canvas camera={{ position: [0, 0, cameraZ] }}>

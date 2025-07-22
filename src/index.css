@@ -17,8 +17,11 @@ body {
   color: black;
   background-color: white;
   font-family: var(--font-inter);
-  /* overflow-x: hidden; */ /* REMOVED */
-  /* overscroll-behavior-y: none; */ /* REMOVED */
+}
+
+html.dark body {
+  color: #e5e7eb;
+  background-color: #18181b;
 }
 
 /* Responsive fixes for NavBar/Dock visibility and layout */
@@ -84,6 +87,15 @@ h6 {
   letter-spacing: 0.01em;
   line-height: 1.15;
   color: #18181b;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 0 #222;
+}
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: #f3f4f6;
 }
 
 h1 {
@@ -109,6 +121,12 @@ p,
   font-weight: 400;
   line-height: 1.7;
   color: #23272f;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 0 #222;
+}
+html.dark body,
+html.dark p,
+html.dark .font-body {
+  color: #e5e7eb;
 }
 
 /* NavBar and Dock: Agency style, bold, spaced */
@@ -154,11 +172,18 @@ button,
   margin-bottom: 0.7em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
+html.dark .section-title {
+  color: #f3f4f6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
 
 /* Agency-style highlight */
 .highlight {
   color: #6366f1;
   font-weight: 700;
+}
+html.dark .highlight {
+  color: #a5b4fc;
 }
 
 /* Specific class for buttons if you add them */
