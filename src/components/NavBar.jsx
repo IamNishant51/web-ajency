@@ -11,7 +11,6 @@ import {
 } from "framer-motion";
 import { FaHome, FaUserTie, FaLaptopCode, FaTools, FaEnvelope } from 'react-icons/fa';
 
-const logoImageSrc = '/logo.png';
 
 // Mobile Dock Item Component
 function MobileDockItem({ children, onClick, label, className = "" }) {
@@ -167,18 +166,13 @@ const NavBar = ({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const items = [
-    {
-      icon: <img src={logoImageSrc} alt="Logo" className="w-full h-full object-contain p-1" />,
-      label: "Brand",
-      onClick: () => navigateToSection('home'),
-    },
     {
       icon: <FaHome className="text-xl" />,
       label: "Home",
