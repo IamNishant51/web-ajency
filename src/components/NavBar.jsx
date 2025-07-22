@@ -175,7 +175,7 @@ const NavBar = ({
     {
       icon: <FaHome className="text-xl" />,
       label: "Home",
-      onClick: () => navigateToSection('home'),
+      onClick: () => navigateToSection('hero'),
     },
     {
       icon: <FaUserTie className="text-xl" />,
