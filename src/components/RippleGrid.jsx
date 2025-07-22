@@ -45,7 +45,7 @@ const RippleGrid = ({
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.width = "100%";
     gl.canvas.style.height = "100%";
-    gl.canvas.style.position = "absolute"; // Make canvas absolute to fill parent
+    gl.canvas.style.position = "absolute"; 
     gl.canvas.style.top = "0";
     gl.canvas.style.left = "0";
     containerRef.current.appendChild(gl.canvas);
@@ -186,7 +186,7 @@ void main() {
       if (!mouseInteraction || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height; // Flip Y coordinate
+      const y = 1.0 - (e.clientY - rect.top) / rect.height; 
       targetMouseRef.current = { x, y };
     };
 

@@ -1,11 +1,9 @@
-// src/pages/Works.jsx
 "use client";
 
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Star, Eye } from 'lucide-react';
 
-// Enhanced SpotlightCard with improved visual effects
 const SpotlightCard = ({ 
   children, 
   className = "", 
@@ -64,7 +62,8 @@ const SpotlightCard = ({
         backgroundImage: `linear-gradient(135deg, ${gradientColors[0]}, ${gradientColors[1]})`,
       }}
     >
-      {/* Spotlight effect */}
+
+      {/* spotlight */}
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 ease-out"
         style={{
@@ -73,7 +72,6 @@ const SpotlightCard = ({
         }}
       />
       
-      {/* Animated border gradient */}
       <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-blue-400/20 blur-sm"></div>
       </div>
@@ -85,7 +83,6 @@ const SpotlightCard = ({
   );
 };
 
-// Enhanced project data with more details
 const projects = [
   {
     id: 1,
@@ -160,14 +157,13 @@ const Works = () => {
   return (
     <motion.section
       id="works"
-      // Removed the background gradient here: bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50
+      
       className="works-cards relative w-full text-gray-900 overflow-hidden flex flex-col justify-start items-center min-h-screen" 
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 1 }}
     >
-      {/* Enhanced Header Section */}
       <div className="max-w-7xl w-full mx-auto text-center pt-20 pb-12 px-4 sm:pt-24">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -184,7 +180,6 @@ const Works = () => {
           </p>
         </motion.div>
 
-        {/* Category Filter Pills */}
         <motion.div
           className="flex flex-wrap justify-center gap-3 mt-8"
           initial={{ y: 30, opacity: 0 }}
@@ -203,7 +198,6 @@ const Works = () => {
         </motion.div>
       </div>
 
-      {/* Project Grid */}
       <div className="w-full max-w-7xl mx-auto px-4 pb-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
           <motion.div
@@ -211,7 +205,7 @@ const Works = () => {
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }} // Staggered entry animation
+            transition={{ duration: 0.6, delay: index * 0.1 }} 
           >
             <SpotlightCard 
               className="h-full flex flex-col p-0" 
@@ -242,7 +236,6 @@ const Works = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               </div>
 
-              {/* Enhanced Content Section */}
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex-grow">
                   <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
@@ -253,7 +246,6 @@ const Works = () => {
                     {project.description}
                   </p>
 
-                  {/* Stats */}
                   <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
                     <div className="flex items-center">
                       <Star className="w-4 h-4 mr-1 fill-yellow-400 text-yellow-400" />
@@ -265,7 +257,6 @@ const Works = () => {
                     </div>
                   </div>
 
-                  {/* Enhanced Tech Stack */}
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.techStack.map((tech, idx) => (
                       <span 
@@ -278,7 +269,6 @@ const Works = () => {
                   </div>
                 </div>
 
-                {/* Enhanced Action Buttons */}
                 <div className="flex gap-3 mt-auto pt-4 border-t border-gray-100">
                   <a
                     href={project.liveLink}
@@ -312,7 +302,6 @@ const Works = () => {
         ))}
       </div>
 
-      {/* Enhanced CTA Section */}
       <motion.div 
         className="text-center py-20 px-6 max-w-4xl mx-auto"
         initial={{ y: 50, opacity: 0 }}

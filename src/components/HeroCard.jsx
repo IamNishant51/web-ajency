@@ -1,4 +1,3 @@
-// src/components/ProfileHeroCard.jsx
 "use client";
 
 import React, { useRef, useEffect, useState, useCallback } from "react";
@@ -6,9 +5,8 @@ import { motion } from "framer-motion";
 import { Instagram } from 'lucide-react';
 import gsap from 'gsap';
 
-// Import your profile image and logo
-const profileImageSrc = '/nishant.png'; // Path to your profile image in the public folder
-const logoImageSrc = '/logo.png'; // Path to your logo in the public folder (for background)
+const profileImageSrc = '/nishant.png'; 
+const logoImageSrc = '/logo.png'; 
 
 const HeroCard = () => {
   const cardRef = useRef(null);
@@ -16,7 +14,6 @@ const HeroCard = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
-  // GSAP for 3D Tilt and Spotlight Interaction - Tuned for smoother animation
   const handleMouseMove = useCallback((e) => {
     if (!cardRef.current) return;
     const { left, top, width, height } = cardRef.current.getBoundingClientRect();
@@ -26,24 +23,23 @@ const HeroCard = () => {
 
     const centerX = width / 2;
     const centerY = height / 2;
-    const rotateX = (y - centerY) / 20; // More subtle tilt sensitivity
-    const rotateY = (x - centerX) / -20; // More subtle tilt sensitivity
+    const rotateX = (y - centerY) / 20; 
+    const rotateY = (x - centerX) / -20; 
 
     gsap.to(cardRef.current, {
       rotateX: rotateX,
       rotateY: rotateY,
-      scale: 1.02, // Subtle scale on hover
-      ease: "power2.out", // Smoother entry ease
-      duration: 0.4, // Slightly longer duration for smoothness
+      scale: 1.02, 
+      ease: "power2.out",
+      duration: 0.4, 
       transformPerspective: 1000
     });
 
-    // Profile image reaction - More subtle movement and scale
     gsap.to(profileImageRef.current, {
-      x: (x - centerX) / 25, // More subtle image movement horizontally
-      y: (y - centerY) / 25, // More subtle image movement vertically
-      scale: 1.02, // Less pronounced scale for the image
-      ease: "power2.out", // Smoother entry ease
+      x: (x - centerX) / 25, 
+      y: (y - centerY) / 25, 
+      scale: 1.02, 
+      ease: "power2.out",
       duration: 0.4
     });
 
@@ -54,20 +50,19 @@ const HeroCard = () => {
     gsap.to(cardRef.current, {
       rotateX: 0,
       rotateY: 0,
-      scale: 1, // Reset scale
-      ease: "power2.inOut", // Smoother reset ease, less bouncy
-      duration: 0.5 // Faster reset for responsiveness
+      scale: 1, 
+      ease: "power2.inOut", 
+      duration: 0.5 
     });
 
     gsap.to(profileImageRef.current, {
-      x: 0, y: 0, // Reset image position
-      scale: 1, // Reset image scale
-      ease: "power2.inOut", // Smoother reset ease
+      x: 0, y: 0,
+      scale: 1,
+      ease: "power2.inOut", 
       duration: 0.5
     });
   }, []);
 
-  // Spotlight effect style (consistent with Skill Cards)
   const spotlightStyle = {
     background: isHovered
       ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.1), transparent 70%)`
@@ -96,37 +91,31 @@ const HeroCard = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Dynamic Spotlight Effect */}
       <div
         className="absolute inset-0 z-0 opacity-0 transition-opacity duration-300 pointer-events-none"
         style={{ ...spotlightStyle, opacity: isHovered ? 1 : 0 }}
       ></div>
 
-      {/* Animated Border Gradient (consistent with Skill Cards) */}
       <div className="absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0">
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/[0.2] via-purple-500/[0.2] to-blue-500/[0.2] blur-sm"></div>
       </div>
       
-      {/* Background Gradient on Hover (New - consistent with Skill Cards) */}
       <div className="absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 
                       bg-gradient-to-br from-blue-500/[0.05] via-purple-500/[0.05] to-blue-500/[0.05] rounded-3xl"></div>
 
 
-      {/* Subtle radial gradient for depth and light reflection (like glass) */}
       <div className="absolute inset-0 z-10 opacity-20"
            style={{
              background: 'radial-gradient(circle at top left, rgba(255,255,255,0.3) 0%, transparent 50%)'
            }}
       ></div>
 
-      {/* Logo in background */}
       <img
         src={logoImageSrc}
         alt="Nishant's Logo Background"
         className="absolute inset-0 w-full h-full object-contain p-12 opacity-5 pointer-events-none z-10"
       />
 
-      {/* Profile Image */}
       <motion.div
         ref={profileImageRef}
         className="relative w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden z-20 mb-5 md:mb-6 border-4 border-white/50 shadow-xl"
@@ -139,7 +128,6 @@ const HeroCard = () => {
         />
       </motion.div>
 
-      {/* User Info */}
       <div className="text-center z-20" style={{ transform: 'translateZ(20px)' }}>
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 md:mb-2"> 
           Nishant
@@ -148,7 +136,6 @@ const HeroCard = () => {
           The Web Architect
         </p>
 
-        {/* Instagram Handle & Link */}
         <div className="flex items-center justify-center gap-2 mb-5 md:mb-6 text-gray-700"> 
           <Instagram size={20} className="md:size-22 text-blue-600" />
           <a
@@ -161,7 +148,6 @@ const HeroCard = () => {
           </a>
         </div>
 
-        {/* Tagline / Status */}
         <p className="text-sm md:text-base lg:text-lg text-gray-600 font-light max-w-[250px] sm:max-w-[280px] lg:max-w-[350px] leading-relaxed mx-auto"> 
           Crafting smooth, modern, and smart digital experiences.
         </p>

@@ -1,4 +1,3 @@
-// src/components/InteractiveBackground.jsx
 "use client";
 
 import {
@@ -11,7 +10,6 @@ import {
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
-// ThemeContext import is removed
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -31,7 +29,6 @@ const BASE_RADIUS = 1;
 const TRANSITION_DURATION = 2000;
 const SHAPE_CHANGE_INTERVAL = 4000;
 
-// Shape Generators (These remain unchanged)
 const generateSpherePositions = () =>
   random.inSphere(new Float32Array(NUM_PARTICLES * 3), { radius: BASE_RADIUS });
 
@@ -129,7 +126,6 @@ const generateTorusKnotPositions = () => {
   return positions;
 };
 
-// --- InteractiveParticles ---
 const InteractiveParticles = ({ scrollProgress, ...props }) => {
   const ref = useRef();
 
@@ -163,8 +159,8 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
   const tempVecA = useMemo(() => new THREE.Vector3(), []);
   const tempVecB = useMemo(() => new THREE.Vector3(), []);
 
-  // Hardcoded particle color for white theme: a subtle light blue
-  const particleColor = "#87CEEB"; // Light Sky Blue
+ 
+  const particleColor = "#87CEEB"; 
 
   useEffect(() => {
     const startTransition = () => {
@@ -252,7 +248,7 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
       >
         <PointMaterial
           transparent
-          color={particleColor} // Using the new light blue color
+          color={particleColor} 
           size={0.02}
           sizeAttenuation
           depthWrite={false}
@@ -263,9 +259,7 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
   );
 };
 
-// --- InteractiveBackground ---
 const InteractiveBackground = ({ scrollProgress }) => {
-  // Dynamic background color: black in dark mode, white in light mode
   const [backgroundColor, setBackgroundColor] = useState("#F5F5F7");
   const [cameraZ, setCameraZ] = useState(2);
   const [isMobile, setIsMobile] = useState(false);
@@ -295,7 +289,6 @@ const InteractiveBackground = ({ scrollProgress }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // On mobile, disable scrollProgress animation (set to 0)
   const effectiveScrollProgress = isMobile ? 0 : scrollProgress;
 
   return (

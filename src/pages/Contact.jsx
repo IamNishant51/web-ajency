@@ -1,4 +1,3 @@
-// src/pages/Contact.jsx
 "use client";
 
 import React, { useState } from 'react';
@@ -26,7 +25,6 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // --- This is the updated part, correctly sending data to your backend ---
       const response = await fetch('https://nishantxd-backend.onrender.com/api/contact', {
         method: 'POST',
         headers: {
@@ -37,7 +35,7 @@ const Contact = () => {
 
       const result = await response.json();
 
-      if (response.ok) { // Check if the HTTP status code is 2xx
+      if (response.ok) { 
         toast.success(result.message || 'Message sent successfully! I\'ll get back to you soon.', {
           position: "top-right",
           autoClose: 5000,
@@ -48,9 +46,9 @@ const Contact = () => {
           progress: undefined,
           theme: "colored",
         });
-        setFormData({ name: '', email: '', subject: '', message: '' }); // Clear form
+        setFormData({ name: '', email: '', subject: '', message: '' }); 
       } else {
-        // Handle server-side errors
+       
         throw new Error(result.error || 'Failed to send message from server.');
       }
 
@@ -90,13 +88,13 @@ const Contact = () => {
       viewport={{ once: true, amount: 0.1 }}
       variants={sectionVariants}
     >
-      <ToastContainer /> {/* Toastify container */}
+      <ToastContainer /> 
 
-      {/* Background Gradient Shapes */}
+      
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-blue-500/[0.05] rounded-full mix-blend-multiply opacity-50 animate-blob pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-purple-500/[0.05] rounded-full mix-blend-multiply opacity-50 animate-blob animation-delay-[2000ms] pointer-events-none"></div>
 
-      {/* Header Section */}
+    
       <div className="max-w-4xl w-full mx-auto text-center pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 md:pb-12 lg:pb-16 px-2 sm:px-4 relative z-10">
         <motion.h2
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight"
@@ -113,9 +111,9 @@ const Contact = () => {
         </motion.p>
       </div>
 
-      {/* Main Content Area: Form and Socials */}
+      
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 relative z-10 p-4 sm:p-6 md:p-8">
-        {/* Contact Form Section */}
+        
         <motion.div
           className="p-5 sm:p-6 md:p-8 rounded-2xl
                       bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl
@@ -190,7 +188,7 @@ const Contact = () => {
           </form>
         </motion.div>
 
-        {/* Other Contact Methods Section */}
+       
         <motion.div
           className="p-5 sm:p-6 md:p-8 rounded-2xl
                       bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl flex flex-col items-center justify-center"
@@ -199,7 +197,7 @@ const Contact = () => {
         >
           <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-5 text-center">Or Connect on Socials</h3>
           <div className="flex flex-col items-start space-y-4 w-full max-w-sm">
-            {/* Direct Email */}
+          
             <a
               href="mailto:nishantunawne0007@gmail.com"
               className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors duration-200 group w-full p-2.5 rounded-md hover:bg-white/[0.1]"
@@ -208,7 +206,6 @@ const Contact = () => {
               <span className="text-base sm:text-lg font-medium truncate">nishantunawne0007@gmail.com</span>
             </a>
             
-            {/* Social Links - Updated with your provided links */}
             <a
               href="https://www.instagram.com/_nishant_o19?igsh=MWFnaXQ3aGYwdGlyNg==" // Your Instagram
               target="_blank"

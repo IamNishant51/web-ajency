@@ -1,6 +1,4 @@
-/* src/index.css or your main global CSS file */
 @import "tailwindcss";
-/* src/index.css or your main global CSS file */
 * {
   box-sizing: border-box;
 }
@@ -25,11 +23,9 @@ html.dark .works-cards p {
   color: #000 !important;
 }
 
-/* IMPORTANT: These lines are REMOVED or commented out to allow Lenis to manage scrolling */
+
 html {
   min-height: 100vh;
-  /* overflow-x: hidden; */ /* REMOVED */
-  /* scroll-behavior: smooth; */ /* REMOVED */
 }
 
 body {
@@ -44,7 +40,6 @@ html.dark body {
   background-color: #18181b;
 }
 
-/* Responsive fixes for NavBar/Dock visibility and layout */
 @media (max-width: 600px) {
   html,
   body {
@@ -62,19 +57,16 @@ html.dark body {
     width: 100vw;
     z-index: 1000;
   }
-  /* (Removed) No longer disabling glassmorphism and blur on mobile */
+
 }
 
-/* Custom Font Definitions */
 :root {
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-space-grotesk: "Space Grotesk", sans-serif;
 }
 
-/* Apply fonts to specific elements or create utility classes */
 
-/* Headings: Modern, bold, spaced for agency look */
 h1,
 h2,
 h3,
@@ -86,7 +78,7 @@ h6 {
   letter-spacing: 0.01em;
   line-height: 1.15;
   color: #18181b;
-  /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 0 #222; */
+  
 }
 html.dark h1,
 html.dark h2,
@@ -111,7 +103,6 @@ h3 {
   margin-bottom: 0.3em;
 }
 
-/* Body text: Clean, readable */
 body,
 p,
 .font-body {
@@ -120,7 +111,7 @@ p,
   font-weight: 400;
   line-height: 1.7;
   color: #23272f;
-  /* text-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 1px 0 #222; */
+ 
 }
 html.dark body,
 html.dark p,
@@ -128,7 +119,7 @@ html.dark .font-body {
   color: #e5e7eb;
 }
 
-/* NavBar and Dock: Agency style, bold, spaced */
+
 nav,
 .navbar,
 .dock,
@@ -142,7 +133,6 @@ nav,
   color: #23272f;
 }
 
-/* Buttons: Stand out, modern */
 button,
 .btn,
 .btn-font,
@@ -154,14 +144,12 @@ button,
   text-transform: uppercase;
 }
 
-/* Subtle text for agency feel */
 .text-muted {
   color: #6b7280;
   font-size: 0.98rem;
   letter-spacing: 0.01em;
 }
 
-/* Section titles for agency */
 .section-title {
   font-family: var(--font-poppins);
   font-weight: 800;
@@ -176,7 +164,6 @@ html.dark .section-title {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
-/* Agency-style highlight */
 .highlight {
   color: #6366f1;
   font-weight: 700;
@@ -185,12 +172,10 @@ html.dark .highlight {
   color: #a5b4fc;
 }
 
-/* Specific class for buttons if you add them */
 .btn-font {
-  font-family: var(--font-space-grotesk); /* Space Grotesk for buttons */
+  font-family: var(--font-space-grotesk); 
 }
 
-/* If you want to use classes instead of direct element styling: */
 .font-heading {
   font-family: var(--font-poppins);
 }

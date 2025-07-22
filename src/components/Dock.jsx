@@ -88,7 +88,7 @@ function DockLabel({ children, className = "", ...rest }) {
       {isVisible && (
         <motion.div
           initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -12 }} // Adjusted for slightly more lift
+          animate={{ opacity: 1, y: -12 }} 
           exit={{ opacity: 0, y: 0 }}
           transition={{ duration: 0.2 }}
           className={`${className} 
@@ -117,7 +117,7 @@ function DockIcon({ children, className = "" }) {
 export default function Dock({
   items,
   className = "",
-  spring = { mass: 0.1, stiffness: 150, damping: 14 }, // Slightly increased damping for smoother stop
+  spring = { mass: 0.1, stiffness: 150, damping: 14 }, 
   magnification = 70,
   distance = 200,
   panelHeight = 64,

@@ -1,4 +1,3 @@
-// components/TrueFocus.jsx
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -11,7 +10,6 @@ const TrueFocus = ({
   animationDuration = 0.5,
   pauseBetweenAnimations = 1,
 }) => {
-  // Detect dark mode
   const [isDark, setIsDark] = useState(() =>
     typeof window !== 'undefined'
       ? document.documentElement.classList.contains('dark')
@@ -27,7 +25,6 @@ const TrueFocus = ({
     return () => observer.disconnect();
   }, []);
 
-  // Set colors based on theme
   const effectiveBorderColor = borderColor || (isDark ? '#a5b4fc' : '#007bff');
   const effectiveGlowColor = glowColor || (isDark ? 'rgba(165, 180, 252, 0.7)' : 'rgba(0, 123, 255, 0.6)');
   const words = sentence.split(" ");

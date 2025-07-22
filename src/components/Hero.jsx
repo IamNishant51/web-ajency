@@ -1,6 +1,6 @@
   import HeroCard from "./HeroCard";
   import { motion } from 'framer-motion';
-  import TrueFocus from './TrueFocus'; // Import the TrueFocus component
+  import TrueFocus from './TrueFocus'; 
 
   const Hero = () => {
     const textVariants = {
@@ -19,26 +19,21 @@
             <HeroCard />
           </div>
 
-          {/* Text Content */}
           <div className="text-center md:text-left max-w-2xl">
-            {/* Replaced h1 with TrueFocus component */}
             <motion.div
               variants={textVariants}
               initial="hidden"
               animate="visible"
               className="font-heading text-5xl md:text-6xl font-bold text-black mb-4 leading-tight"
-              // We'll let TrueFocus handle its internal animations and styles
-              // The `initial` and `animate` here will apply to the container of TrueFocus
+            
             >
               <TrueFocus
                 sentence="Nishant — The Web Architect"
-                blurAmount={4} // Adjust blur intensity
-                animationDuration={0.4} // How fast the focus box moves/blurs
-                pauseBetweenAnimations={0.8} // How long it pauses on each word
-                // You can customize colors here for branding
-                borderColor="#007bff" // A vibrant blue
-                glowColor="rgba(0, 123, 255, 0.6)" // Matching blue glow
-                // manualMode={true} // Uncomment to enable hover interaction instead of automatic cycle
+                blurAmount={4} 
+                animationDuration={0.4} 
+                pauseBetweenAnimations={0.8} 
+                borderColor="#007bff" 
+                glowColor="rgba(0, 123, 255, 0.6)"
               />
             </motion.div>
 

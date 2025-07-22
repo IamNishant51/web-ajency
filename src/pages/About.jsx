@@ -1,4 +1,3 @@
-// src/pages/About.jsx
 "use client";
 
 import React, { useRef, useEffect } from 'react';
@@ -9,7 +8,6 @@ import { Briefcase, Code, Database, Feather, Star } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- Data for the Timeline (No changes here) ---
 const timelineEvents = [
     { 
         year: "2022", 
@@ -43,11 +41,9 @@ const timelineEvents = [
     },
 ];
 
-// --- Component with Glass Effect ---
 const About = () => {
     const timelineRef = useRef(null);
 
-    // The useEffect hook for GSAP animations remains the same.
     useEffect(() => {
         const timelineItems = gsap.utils.toArray(".timeline-item");
         const triggers = [];
@@ -76,7 +72,7 @@ const About = () => {
             tl.fromTo(card,
                 { 
                     opacity: 0, 
-                    x: isLeft ? -50 : 50, // Reduced slide distance for a subtler effect
+                    x: isLeft ? -50 : 50, 
                     scale: 0.95 
                 },
                 {
@@ -123,13 +119,12 @@ const About = () => {
                                 <Icon className="w-3 h-3 text-sky-600" />
                             </div>
 
-                            {/* --- 👇 ENHANCED GLASS EFFECT CARD --- */}
                             <div className={`
                                 timeline-card w-full md:w-[calc(50%-2rem)] p-6 rounded-xl shadow-lg 
                                 ${isLeft ? 'md:mr-auto' : 'md:ml-auto'} 
                                 opacity-0 transform 
                                 bg-white/50 backdrop-blur-xl border border-white/40 shadow-inner-sm
-                                ` // Enhanced glass effect: increased blur, more transparent white background, lighter border, subtle inner shadow
+                                ` 
                             }>
                                 <p className="text-sm font-semibold text-sky-700 mb-1">{event.year}</p>
                                 <h3 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h3>

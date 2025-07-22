@@ -1,4 +1,3 @@
-// src/components/NavBar.jsx
 "use client";
 
 import React, { Children, cloneElement, useEffect, useState, useMemo, useRef } from 'react';
@@ -13,7 +12,6 @@ import { FaHome, FaUserTie, FaLaptopCode, FaTools, FaEnvelope } from 'react-icon
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 
-// Mobile Dock Item Component
 function MobileDockItem({ children, onClick, label, className = "" }) {
   const [isPressed, setIsPressed] = useState(false);
 
@@ -42,7 +40,6 @@ function MobileDockItem({ children, onClick, label, className = "" }) {
   );
 }
 
-// Desktop Dock Components
 function DockItem({
   children,
   className = "",
@@ -139,18 +136,13 @@ function DockIcon({ children, className = "" }) {
   );
 }
 
-// Navigation functions (using window.scrollTo for direct control)
 const navigateToSection = (sectionId) => {
   const element = document.getElementById(sectionId);
   if (element) {
-    // For smooth scrolling using the browser's native scroll-behavior (if not using Lenis's scrollTo)
     element.scrollIntoView({ behavior: "smooth" });
-    // If you prefer to use Lenis's scrollTo, you would need to pass the lenis instance down from App.jsx
-    // e.g., lenis.scrollTo(element, { offset: -yourHeaderHeight });
   }
 };
 
-// Main NavBar Component
 const NavBar = ({
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 65,
@@ -167,7 +159,6 @@ const NavBar = ({
     return 'light';
   });
 
-  // Theme effect
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (theme === 'dark') {
@@ -179,10 +170,9 @@ const NavBar = ({
     }
   }, [theme]);
 
-  // Check for mobile screen size
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // 768px is Tailwind's 'md' breakpoint
+      setIsMobile(window.innerWidth < 768); 
     };
 
     checkMobile();
@@ -228,7 +218,6 @@ const NavBar = ({
     },
   ];
 
-  // Mobile Navigation - Full Dock (visible on screens < 768px)
   if (isMobile) {
     return (
       <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[999] px-4 w-full max-w-sm pointer-events-none">
@@ -249,7 +238,6 @@ const NavBar = ({
     );
   }
 
-  // Desktop Navigation - Original Dock with Magnification (visible on screens >= 768px)
   return (
     <div
       className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl p-2

@@ -1,4 +1,3 @@
-// src/pages/Skills.jsx
 "use client";
 
 import React, { useRef, useEffect, useState, useCallback } from 'react';
@@ -7,13 +6,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
-// Importing icons from react-icons
 import { FaReact, FaNodeJs, FaGitAlt } from 'react-icons/fa';
 import { SiNextdotjs, SiTailwindcss, SiFramer, SiGreensock, SiExpress, SiFirebase, SiMongodb, SiVercel } from 'react-icons/si';
 import { FiFigma } from 'react-icons/fi';
 import { AiFillCode } from 'react-icons/ai';
 
-// --- Data for your Skills ---
 const skillsData = [
   {
     category: "Frontend Development",
@@ -58,11 +55,10 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
     const y = e.clientY - top;
     setMousePosition({ x, y });
 
-    // GSAP for 3D tilt effect on card
     const centerX = width / 2;
     const centerY = height / 2;
-    const rotateX = (y - centerY) / 20; // Adjust sensitivity
-    const rotateY = (x - centerX) / -20; // Adjust sensitivity
+    const rotateX = (y - centerY) / 20; 
+    const rotateY = (x - centerX) / -20;
 
     gsap.to(cardRef.current, {
       rotateX: rotateX,
@@ -73,7 +69,6 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
       transformPerspective: 1000
     });
 
-    // GSAP for icon lift/scale
     gsap.to(iconRef.current, {
       y: -5,
       scale: 1.1,
@@ -104,7 +99,6 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
     const card = cardRef.current;
     if (!card) return;
 
-    // Animate proficiency bar on scroll into view
     gsap.fromTo(proficiencyBarRef.current,
       { width: 0 },
       {
@@ -113,14 +107,13 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
         ease: "power2.out",
         scrollTrigger: {
           trigger: card,
-          start: "top 85%", // when the top of the card hits 85% of viewport
+          start: "top 85%", 
           toggleActions: "play none none reverse",
-          once: true // Only animate once
+          once: true 
         }
       }
     );
 
-    // Cleanup GSAP ScrollTrigger instance on component unmount
     return () => {
       ScrollTrigger.getAll().forEach(trigger => {
         if (trigger.trigger === card) {
@@ -156,16 +149,14 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
       `}
       style={{ transformStyle: 'preserve-3d' }}
     >
-      {/* Spotlight Effect */}
       <div
         ref={spotlightRef}
         className="absolute inset-0 z-0 opacity-0 transition-opacity duration-300 pointer-events-none"
         style={spotlightStyle}
       ></div>
 
-      {/* Animated Border Gradient */}
       <div className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0">
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/[0.25] via-purple-500/[0.25] to-blue-500/[0.25] blur-sm"></div> {/* Slightly more opaque blur */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/[0.25] via-purple-500/[0.25] to-blue-500/[0.25] blur-sm"></div> 
       </div>
 
       {/* Content */}
@@ -184,8 +175,8 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
           style={{ transform: 'translateZ(10px)' }}
         >{description}</p>
 
-        {/* Skill Level Bar */}
-        <div className="w-full bg-gray-200/[0.4] rounded-full h-2.5 sm:h-3 overflow-hidden mt-auto" // Slightly more opaque bar track
+      
+        <div className="w-full bg-gray-200/[0.4] rounded-full h-2.5 sm:h-3 overflow-hidden mt-auto"
           style={{ transform: 'translateZ(5px)' }}
         >
           <div
@@ -201,7 +192,7 @@ const SpotlightSkillCard = ({ name, icon: Icon, level, description, delay = 0 })
   );
 };
 
-// --- Skills Section Component ---
+// --- Skills Section ---
 const Skills = () => {
   return (
     <motion.section
@@ -212,7 +203,7 @@ const Skills = () => {
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 1 }}
     >
-      {/* Header Section */}
+      {/* Header  */}
       <div className="max-w-7xl w-full mx-auto text-center pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 md:pb-12 lg:pb-16 px-2 sm:px-4">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -259,7 +250,6 @@ const Skills = () => {
         ))}
       </div>
 
-      {/* CTA Section */}
       <motion.div
         className="text-center py-12 sm:py-16 md:py-20 px-6 max-w-2xl sm:max-w-4xl lg:max-w-5xl mx-auto"
         initial={{ y: 50, opacity: 0 }}
