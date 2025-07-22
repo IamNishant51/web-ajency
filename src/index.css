@@ -1,41 +1,46 @@
 /* src/index.css or your main global CSS file */
 @import "tailwindcss";
-
+/* src/index.css or your main global CSS file */
 * {
   box-sizing: border-box;
 }
 
+/* IMPORTANT: These lines are REMOVED or commented out to allow Lenis to manage scrolling */
 html {
   min-height: 100vh;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+  /* overflow-x: hidden; */ /* REMOVED */
+  /* scroll-behavior: smooth; */ /* REMOVED */
 }
 
- body{ min-height: 100vh;
+body {
+  min-height: 100vh;
   color: black;
   background-color: white;
   font-family: var(--font-inter);
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
+  /* overflow-x: hidden; */ /* REMOVED */
+  /* overscroll-behavior-y: none; */ /* REMOVED */
 }
+
 /* Responsive fixes for NavBar/Dock visibility and layout */
 @media (max-width: 600px) {
   html,
   body {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */ /* REMOVED */
     padding: 0;
     margin: 0;
   }
   main {
     padding-bottom: 60px; /* Space for Dock if fixed at bottom */
   }
+
+  /* These #dock and .dock rules are fine for mobile specific fixed positioning */
   #dock,
   .dock {
     position: fixed !important;
     bottom: 0;
     left: 0;
     width: 100vw;
-    z-index: 1000;
+    z-index: 1000; /* Should be overridden by NavBar.jsx z-[999] */
   }
 }
 

@@ -138,15 +138,14 @@ function DockIcon({ children, className = "" }) {
   );
 }
 
-// Navigation functions
+// Navigation functions (using window.scrollTo for direct control)
 const navigateToSection = (sectionId) => {
-  if (sectionId === 'home') {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } else {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const element = document.getElementById(sectionId);
+  if (element) {
+    // For smooth scrolling using the browser's native scroll-behavior (if not using Lenis's scrollTo)
+    element.scrollIntoView({ behavior: "smooth" });
+    // If you prefer to use Lenis's scrollTo, you would need to pass the lenis instance down from App.jsx
+    // e.g., lenis.scrollTo(element, { offset: -yourHeaderHeight });
   }
 };
 
@@ -164,7 +163,7 @@ const NavBar = ({
   // Check for mobile screen size
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 768); // 768px is Tailwind's 'md' breakpoint
     };
 
     checkMobile();
@@ -200,12 +199,15 @@ const NavBar = ({
     },
   ];
 
-  // Mobile Navigation - Full Dock
+  // Mobile Navigation - Full Dock (visible on screens < 768px)
   if (isMobile) {
     return (
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 px-4 w-full max-w-sm">
+      // Added z-[999] for high z-index
+      // pointer-events-none on the wrapper to allow clicks *through* the empty space of the dock
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[999] px-4 w-full max-w-sm pointer-events-none">
+        {/* pointer-events-auto on the inner div to make the buttons clickable */}
         <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl border border-gray-200/20 
-                        rounded-2xl px-3 py-3 shadow-xl gap-2 overflow-x-auto scrollbar-hide">
+                        rounded-2xl px-3 py-3 shadow-xl gap-2 overflow-x-auto scrollbar-hide pointer-events-auto">
           {items.map((item, index) => (
             <MobileDockItem
               key={index}
@@ -221,11 +223,13 @@ const NavBar = ({
     );
   }
 
-  // Desktop Navigation - Original Dock with Magnification
+  // Desktop Navigation - Original Dock with Magnification (visible on screens >= 768px)
   return (
+    // Added z-[999] for high z-index
+    // pointer-events-none on the wrapper
     <div
       className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex items-end w-fit gap-4 rounded-2xl p-2
-                  bg-white/10 backdrop-blur-xl shadow-lg z-50 overflow-hidden border border-gray-200/20"
+                  bg-white/10 backdrop-blur-xl shadow-lg z-[999] overflow-hidden border border-gray-200/20 pointer-events-none"
       style={{ height: panelHeight }}
       onMouseMove={({ pageX }) => {
         mouseX.set(pageX);
@@ -236,22 +240,25 @@ const NavBar = ({
       role="toolbar"
       aria-label="Application dock"
     >
-      {items.map((item, index) => (
-        <DockItem
-          key={index}
-          onClick={item.onClick}
-          className={item.className}
-          mouseX={mouseX}
-          spring={spring}
-          distance={distance}
-          magnification={magnification}
-          baseItemSize={baseItemSize}
-          label={item.label}
-        >
-          <DockIcon>{item.icon}</DockIcon>
-          <DockLabel>{item.label}</DockLabel>
-        </DockItem>
-      ))}
+      {/* pointer-events-auto on the inner div */}
+      <div className="flex items-end gap-4 pointer-events-auto">
+        {items.map((item, index) => (
+          <DockItem
+            key={index}
+            onClick={item.onClick}
+            className={item.className}
+            mouseX={mouseX}
+            spring={spring}
+            distance={distance}
+            magnification={magnification}
+            baseItemSize={baseItemSize}
+            label={item.label}
+          >
+            <DockIcon>{item.icon}</DockIcon>
+            <DockLabel>{item.label}</DockLabel>
+          </DockItem>
+        ))}
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import Lenis from "lenis";
 import NavBar from "./components/NavBar";
-import Hero from "./components/Hero";
+import Hero from "./components/Hero"; 
 
 // Lazy load heavy components and pages
 const InteractiveBackground = lazy(() => import("./components/InteractiveBackground"));
@@ -16,7 +16,6 @@ const Loader = lazy(() => import("./components/Loader")); // Loader is still laz
 const App = () => {
   const lenisRef = useRef();
   const [scrollProgress, setScrollProgress] = useState(0);
-  // ADD THIS STATE: This state now explicitly controls the loader's visibility
   const [showAppLoader, setShowAppLoader] = useState(true);
 
   useEffect(() => {
@@ -39,22 +38,20 @@ const App = () => {
 
     requestAnimationFrame(raf);
 
-    // This setTimeout now controls when the loader is "done" from App's perspective
-    // Adjust the duration (e.g., 3500ms for 2.8s progress + 0.6s exit delay)
     const loaderTimeout = setTimeout(() => {
-      setShowAppLoader(false); // Signal the loader to start its exit animation
-    }, 3500); // Give enough time for the loader's internal animations
+      setShowAppLoader(false);
+    }, 3500);
 
     return () => {
       if (lenisRef.current) lenisRef.current.destroy();
-      clearTimeout(loaderTimeout); // Clean up the timeout
+      clearTimeout(loaderTimeout);
     };
   }, []);
 
   return (
-    <div className="lenis lenis-smooth" style={{ position: 'relative', zIndex: 1 }}>
+    // Added overflow-x-hidden here to contain any horizontal overflow within the scrollable area
+    <div className="lenis lenis-smooth overflow-x-hidden" style={{ position: 'relative', zIndex: 1 }}>
       {/* Conditionally render Loader based on showAppLoader state */}
-      {/* The Loader will now receive a proper boolean prop */}
       {showAppLoader && (
         <Suspense fallback={null}>
           <Loader isLoading={showAppLoader} /> {/* Pass the state as the isLoading prop */}
@@ -67,11 +64,11 @@ const App = () => {
       </Suspense>
 
       <>
-        <NavBar />
+        <NavBar /> {/* NavBar should now be visible and interactive */}
         
         <main>
-          <section id="home">
-            <Hero />
+          <section id="hero">
+            <Hero/> 
           </section>
           
           <Suspense fallback={<div className="text-center p-8">Loading section...</div>}>
