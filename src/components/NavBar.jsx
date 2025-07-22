@@ -174,7 +174,7 @@ const NavBar = ({
   const items = [
     {
       icon: <FaHome className="text-xl" />,
-      label: "Home",
+      label: "Hero",
       onClick: () => navigateToSection('hero'),
     },
     {
