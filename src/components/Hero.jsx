@@ -56,7 +56,7 @@
               variants={textVariants}
               initial="hidden"
               animate="visible"
-              transition={{ ...textVariants.visible.transition, delay: 0.6 }}
+              transition={{ ...textVariants.visible.transition, delay: 0.1 }}
             >
               A modern web developer passionate about frontend magic and building interactive experiences. Young, growing, and always learning—that's my strength!
             </motion.p>
