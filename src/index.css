@@ -7,27 +7,68 @@
 
 html {
   min-height: 100vh;
-  overflow-y: scroll;
+  width: 100vw;
+  max-width: 100vw;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
   color: black;
   background-color: white;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+/* Responsive fixes for NavBar/Dock visibility and layout */
+@media (max-width: 600px) {
+  html,
+  body {
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+  }
+  main {
+    padding-bottom: 60px; /* Space for Dock if fixed at bottom */
+  }
+  #navbar,
+  .navbar,
+  nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+  }
+  #dock,
+  .dock {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1000;
+  }
 }
 
 /* Custom Font Definitions */
 :root {
-  --font-poppins: 'Poppins', sans-serif;
-  --font-inter: 'Inter', sans-serif;
-  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
 }
 
 /* Apply fonts to specific elements or create utility classes */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-poppins); /* Poppins for all headings */
 }
 
