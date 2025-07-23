@@ -351,9 +351,9 @@ const InteractiveBackground = ({ scrollProgress }) => {
         {!isMobile && (
           <EffectComposer>
             <Bloom
-              intensity={2.2}
-              luminanceThreshold={0.85}
-              luminanceSmoothing={0.35}
+              intensity={5.2}
+              luminanceThreshold={0.90}
+              luminanceSmoothing={0.40}
               kernelSize={5}
               mipmapBlur
             />
