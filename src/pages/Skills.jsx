@@ -212,10 +212,10 @@ const Skills = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
-            My <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Core Capabilities</span>
+            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Core Capabilities</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-2xl sm:max-w-3xl lg:max-w-4xl mx-auto font-light leading-relaxed">
-            As "The Web Architect," I leverage a powerful blend of modern technologies and tools to
+            As "Web agency," we leverage a powerful blend of modern technologies and tools to
             **craft smooth, modern, and smart digital experiences** from concept to deployment.
           </p>
         </motion.div>

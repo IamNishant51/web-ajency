@@ -101,9 +101,9 @@ const About = () => {
             transition={{ duration: 0.8 }}
         >
             <div className="max-w-4xl w-full mx-auto text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">My Journey</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">Our Journey</h2>
                 <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-                    A timeline of how I grew from a curious beginner to a passionate developer.
+                    A timeline of how we grew from beginner's to Professional web-development Agency.
                 </p>
             </div>
 

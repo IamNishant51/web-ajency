@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Instagram } from 'lucide-react';
 import gsap from 'gsap';
 
-const profileImageSrc = '/nishant.png'; 
+const profileImageSrc = '/logo.png'; 
 const logoImageSrc = '/logo.png'; 
 
 const HeroCard = () => {
@@ -130,10 +130,10 @@ const HeroCard = () => {
 
       <div className="text-center z-20" style={{ transform: 'translateZ(20px)' }}>
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-1 md:mb-2"> 
-          Nishant
+          Web-Bridge
         </h2>
         <p className="text-md md:text-lg lg:text-xl text-sky-600 font-semibold mb-3 md:mb-4"> 
-          The Web Architect
+          We Build Dreams
         </p>
 
         <div className="flex items-center justify-center gap-2 mb-5 md:mb-6 text-gray-700"> 

@@ -28,7 +28,7 @@
             
             >
               <TrueFocus
-                sentence="Nishant — The Web Architect"
+                sentence="Web-Bridge - Designing The Dream"
                 blurAmount={4} 
                 animationDuration={0.4} 
                 pauseBetweenAnimations={0.8} 
