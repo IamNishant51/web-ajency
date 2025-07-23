@@ -166,7 +166,7 @@ const AgencySections = () => {
         </div>
       </section>
 
-      {/* Projects Section (Dynamic) */}
+      {/* Projects Section (Dynamic)
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="projects">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
@@ -205,7 +205,7 @@ const AgencySections = () => {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Pricing Section */}
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="pricing">
@@ -277,7 +277,7 @@ const AgencySections = () => {
       </section>
 
       {/* Clients Section */}
-      <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="clients">
+      {/* <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="clients">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
             Our Clients
@@ -297,7 +297,7 @@ const AgencySections = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonials Section */}
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="testimonials">
@@ -338,7 +338,7 @@ const AgencySections = () => {
         </div>
       </section>
 
-      {/* Blog/Insights Section (Dynamic) */}
+      {/* Blog/Insights Section (Dynamic)
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="blog">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
@@ -374,7 +374,7 @@ const AgencySections = () => {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

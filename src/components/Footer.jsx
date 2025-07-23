@@ -28,7 +28,7 @@ const Footer = () => {
 
         <div className="flex flex-col items-center md:items-start text-center md:text-left flex-shrink-0">
           <p className="text-sm sm:text-base font-semibold text-gray-900 leading-tight">
-            Nishant <span className="text-purple-600">— The Web Architect</span>
+            Web-Bridge <span className="text-purple-600">— Web-Developer's</span>
           </p>
           <p className="text-xs text-gray-600 mt-1 leading-tight">
             Crafting smooth, modern, and smart digital experiences.

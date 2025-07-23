@@ -9,7 +9,7 @@ const About = lazy(() => import("./pages/About"));
 const Works = lazy(() => import("./pages/Works"));
 const Skills = lazy(() => import("./pages/Skills"));
 const Contact = lazy(() => import("./pages/Contact"));
-const Footer = lazy(() => import("./components/Footer"));
+// const Footer = lazy(() => import("./components/Footer"));
 const Loader = lazy(() => import("./components/Loader"));
 
 const App = () => {
@@ -87,9 +87,9 @@ const App = () => {
           </section>
         </main>
 
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <Footer />
-        </Suspense>
+        </Suspense> */}
       </>
     </div>
   );
