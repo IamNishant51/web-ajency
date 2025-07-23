@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import Lenis from "lenis";
 import NavBar from "./components/NavBar";
-import Hero from "./components/Hero"; 
+import Hero from "./components/Hero";
+import AgencySections from "./components/AgencySections";
 
 const InteractiveBackground = lazy(() => import("./components/InteractiveBackground"));
 const About = lazy(() => import("./pages/About"));
@@ -47,11 +48,11 @@ const App = () => {
   }, []);
 
   return (
-   
+
     <div className="lenis lenis-smooth overflow-x-hidden" style={{ position: 'relative', zIndex: 1 }}>
       {showAppLoader && (
         <Suspense fallback={null}>
-          <Loader isLoading={showAppLoader} /> 
+          <Loader isLoading={showAppLoader} />
         </Suspense>
       )}
 
@@ -60,32 +61,32 @@ const App = () => {
       </Suspense>
 
       <>
-        <NavBar /> 
-        
+        <NavBar />
+
         <main>
           <section id="hero">
-            <Hero/> 
+            <Hero />
           </section>
-          
+
           <Suspense fallback={<div className="text-center p-8">Loading section...</div>}>
             <section id="about">
               <About />
             </section>
-            
+
             <section id="works">
               <Works />
             </section>
-            
+
             <section id="skills">
               <Skills />
             </section>
-            
-            <section id="contact">
-              <Contact />
-            </section>
           </Suspense>
+          <AgencySections />
+          <section id="contact">
+            <Contact />
+          </section>
         </main>
-        
+
         <Suspense fallback={null}>
           <Footer />
         </Suspense>

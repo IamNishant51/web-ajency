@@ -234,7 +234,7 @@ const Skills = () => {
             >
               <span className="text-blue-700">{categoryData.category}</span>
             </motion.h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10"> {/* Adjusted grid for 3 cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10"> 
               {categoryData.skills.map((skill, skillIndex) => (
                 <SpotlightSkillCard
                   key={skill.name}
