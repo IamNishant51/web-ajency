@@ -10,9 +10,18 @@ import {
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
+
+// OPTIMIZATION: Selective import for Three.js
+// Import only the specific classes you need from 'three'.
+// THREE.Vector3 and THREE.AdditiveBlending are used directly.
+import { Vector3, AdditiveBlending } from "three"; 
+
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import * as THREE from "three";
-import gsap from "gsap";
+
+// OPTIMIZATION: GSAP selective imports
+// If you only use gsap.to, you don't need a comprehensive 'gsap/all' import.
+// ScrollTrigger is correctly imported and registered.
+import { gsap } from "gsap"; 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,11 +164,11 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
     return pos;
   }, [shapeGenerators]);
 
-  const tempVec = useMemo(() => new THREE.Vector3(), []);
-  const tempVecA = useMemo(() => new THREE.Vector3(), []);
-  const tempVecB = useMemo(() => new THREE.Vector3(), []);
+  // OPTIMIZATION: Use the selectively imported Vector3 instead of THREE.Vector3
+  const tempVec = useMemo(() => new Vector3(), []); 
+  const tempVecA = useMemo(() => new Vector3(), []);
+  const tempVecB = useMemo(() => new Vector3(), []);
 
- 
   const particleColor = "#87CEEB"; 
 
   useEffect(() => {
@@ -246,13 +255,14 @@ const InteractiveParticles = ({ scrollProgress, ...props }) => {
         frustumCulled
         {...props}
       >
+        {/* OPTIMIZATION: Use the selectively imported AdditiveBlending instead of THREE.AdditiveBlending */}
         <PointMaterial
           transparent
           color={particleColor} 
           size={0.02}
           sizeAttenuation
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={AdditiveBlending} 
         />
       </Points>
     </group>
