@@ -8,7 +8,7 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
-import { FaHome, FaUserTie, FaLaptopCode, FaTools, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaUserTie, FaLaptopCode, FaTools, FaEnvelope, FaBuilding } from 'react-icons/fa';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 
@@ -172,7 +172,7 @@ const NavBar = ({
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); 
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -200,6 +200,11 @@ const NavBar = ({
       icon: <FaTools className="text-xl" />,
       label: "Skills",
       onClick: () => navigateToSection('skills'),
+    },
+    {
+      icon: <FaBuilding className="text-xl" />,
+      label: "Agency",
+      onClick: () => navigateToSection('services'),
     },
     {
       icon: <FaEnvelope className="text-xl" />,
