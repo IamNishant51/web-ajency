@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger); 
 
-const SvgSeparator = ({ idPrefix, animationDelay = 0.5, className = "" }) => {
+const SvgSeparator = ({ idPrefix, animationDelay = 0.3, className = "" }) => {
   const containerRef = useRef(null); 
   const dPathRef = useRef(null);     
   const xLeg1aRef = useRef(null);   
@@ -36,7 +36,7 @@ const SvgSeparator = ({ idPrefix, animationDelay = 0.5, className = "" }) => {
     });
 
     if (dPathRef.current) {
-      tl.to(dPathRef.current, { strokeDashoffset: 0, duration: 1.8, delay: animationDelay });
+      tl.to(dPathRef.current, { strokeDashoffset: 0, duration: 1.2, delay: animationDelay });
     }
 
     

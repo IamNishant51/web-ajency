@@ -209,7 +209,7 @@ const Skills = () => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
             Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Core Capabilities</span>
@@ -230,7 +230,7 @@ const Skills = () => {
               initial={{ y: 30, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.7, delay: 0.2 + catIndex * 0.1 }}
+              transition={{ duration: 0.5, delay: 0.2 + catIndex * 0.1 }}
             >
               <span className="text-blue-700">{categoryData.category}</span>
             </motion.h3>

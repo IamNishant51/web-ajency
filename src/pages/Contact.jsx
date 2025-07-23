@@ -93,7 +93,7 @@ const Contact = () => {
 
         {/* Background Blobs */}
         <div className="absolute top-1/4 left-0 w-64 h-64 bg-blue-500/[0.05] rounded-full mix-blend-multiply opacity-50 animate-blob pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-purple-500/[0.05] rounded-full mix-blend-multiply opacity-50 animate-blob animation-delay-[2000ms] pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-purple-500/[0.05] rounded-full mix-blend-multiply opacity-50 animate-blob animation-delay-[1500ms] pointer-events-none"></div>
 
         {/* Header Content */}
         <div className="max-w-4xl w-full mx-auto text-center pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10 md:pb-12 lg:pb-16 px-2 sm:px-4 relative z-10">
@@ -120,7 +120,7 @@ const Contact = () => {
                         bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl
                         flex flex-col items-center"
             variants={itemVariants}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.3 }}
           >
             <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-5 text-center">Send Me a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-sm">
@@ -194,7 +194,7 @@ const Contact = () => {
             className="p-5 sm:p-6 md:p-8 rounded-2xl
                         bg-white/[0.1] backdrop-blur-lg border border-gray-200/[0.2] shadow-xl flex flex-col items-center justify-center"
             variants={itemVariants}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.4 }}
           >
             <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-5 text-center">Or Connect on Socials</h3>
             <div className="flex flex-col items-start space-y-4 w-full max-w-sm">

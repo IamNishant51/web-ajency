@@ -5,7 +5,7 @@
   const Hero = () => {
     const textVariants = {
       hidden: { opacity: 0, x: -50 },
-      visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut", delay: 0.4 } },
+      visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut", delay: 0.2 } },
     };
 
     return (
@@ -42,7 +42,7 @@
               variants={textVariants}
               initial="hidden"
               animate="visible"
-              transition={{ ...textVariants.visible.transition, delay: 0.6 }}
+              transition={{ ...textVariants.visible.transition, delay: 0.3 }}
             >
               Crafting smooth, modern, and smart digital experiences.
             </motion.p>

@@ -169,7 +169,7 @@ const Works = () => {
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
             Featured <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Works</span>
@@ -185,7 +185,7 @@ const Works = () => {
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
           {['All', 'Frontend', 'Full-stack', 'AI/ML', 'Data Viz'].map((category) => (
             <span 
@@ -205,7 +205,7 @@ const Works = () => {
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }} 
+            transition={{ duration: 0.5, delay: index * 0.1 }} 
           >
             <SpotlightCard 
               className="h-full flex flex-col p-0" 
