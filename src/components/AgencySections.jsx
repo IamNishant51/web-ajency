@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useRef, useState, useCallback } from "react"; // Removed useEffect as it's no longer needed for data fetching
 import { motion } from "framer-motion";
 import gsap from "gsap";
 
-// Backend API base URL (adjust if needed)
-const API_BASE = "https://nishantxd-backend.onrender.com";
+// Backend API base URL - Keep only if you use it for other purposes like contact form
+// If this component strictly doesn't need the backend, you can remove API_BASE
+// But you mentioned a contact form, so it's good to keep it if that form is somewhere else.
+// const API_BASE = "https://nishantxd-backend.onrender.com"; // Keep if contact form uses it
 
 const AgencyCard = ({
   children,
@@ -96,31 +98,30 @@ const AgencyCard = ({
 };
 
 const AgencySections = () => {
-  // State for projects and blog posts
-  const [projects, setProjects] = useState([]);
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
-  const [loadingBlogs, setLoadingBlogs] = useState(true);
+  // Removed state for projects and blog posts as they are not being fetched
+  // const [projects, setProjects] = useState([]);
+  // const [blogPosts, setBlogPosts] = useState([]);
+  // const [loadingProjects, setLoadingProjects] = useState(true);
+  // const [loadingBlogs, setLoadingBlogs] = useState(true);
 
-  useEffect(() => {
-    // Fetch projects
-    fetch(`${API_BASE}/api/projects`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(Array.isArray(data) ? data : []);
-        setLoadingProjects(false);
-      })
-      .catch(() => setLoadingProjects(false));
+  // Removed useEffect hook as it contained the API calls you don't want
+  // useEffect(() => {
+  //   fetch(`${API_BASE}/api/projects`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProjects(Array.isArray(data) ? data : []);
+  //       setLoadingProjects(false);
+  //     })
+  //     .catch(() => setLoadingProjects(false));
 
-    // Fetch blog posts
-    fetch(`${API_BASE}/api/blog-posts`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBlogPosts(Array.isArray(data) ? data : []);
-        setLoadingBlogs(false);
-      })
-      .catch(() => setLoadingBlogs(false));
-  }, []);
+  //   fetch(`${API_BASE}/api/blog-posts`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setBlogPosts(Array.isArray(data) ? data : []);
+  //       setLoadingBlogs(false);
+  //     })
+  //     .catch(() => setLoadingBlogs(false));
+  // }, []);
 
   return (
     <>
@@ -166,46 +167,46 @@ const AgencySections = () => {
         </div>
       </section>
 
-      {/* Projects Section (Dynamic)
-      <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="projects">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
-            Our Projects
-          </h2>
-          {loadingProjects ? (
-            <div>Loading projects...</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {projects.length === 0 ? (
-                <div className="col-span-full text-gray-500">No projects found.</div>
-              ) : (
-                projects.map((project, idx) => (
-                  <AgencyCard key={project._id || idx} delay={idx * 0.1} className="min-h-[220px] flex flex-col justify-between items-center">
-                    <div className="flex flex-col items-center text-center">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-black" style={{ transform: "translateZ(20px)" }}>
-                        {project.title}
-                      </h3>
-                      <p className="text-black text-xs sm:text-sm md:text-base mb-2" style={{ transform: "translateZ(10px)" }}>
-                        {project.description}
-                      </p>
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline text-xs sm:text-sm"
-                        >
-                          View Project
-                        </a>
-                      )}
-                    </div>
-                  </AgencyCard>
-                ))
-              )}
-            </div>
-          )}
-        </div>
-      </section> */}
+      {/* Projects Section (Dynamic) - Still commented out, but now clean from API calls */}
+      {/* <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="projects">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
+              Our Projects
+            </h2>
+            {loadingProjects ? (
+              <div>Loading projects...</div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                {projects.length === 0 ? (
+                  <div className="col-span-full text-gray-500">No projects found.</div>
+                ) : (
+                  projects.map((project, idx) => (
+                    <AgencyCard key={project._id || idx} delay={idx * 0.1} className="min-h-[220px] flex flex-col justify-between items-center">
+                      <div className="flex flex-col items-center text-center">
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-black" style={{ transform: "translateZ(20px)" }}>
+                          {project.title}
+                        </h3>
+                        <p className="text-black text-xs sm:text-sm md:text-base mb-2" style={{ transform: "translateZ(10px)" }}>
+                          {project.description}
+                        </p>
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline text-xs sm:text-sm"
+                          >
+                            View Project
+                          </a>
+                        )}
+                      </div>
+                    </AgencyCard>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </section> */}
 
       {/* Pricing Section */}
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="pricing">
@@ -276,28 +277,28 @@ const AgencySections = () => {
         </div>
       </section>
 
-      {/* Clients Section */}
+      {/* Clients Section - Still commented out */}
       {/* <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="clients">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
-            Our Clients
-          </h2>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 items-center">
-            {[1, 2, 3, 4].map((brand, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ y: 40, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="w-24 h-10 sm:w-28 sm:h-12 bg-gray-200/80 rounded flex items-center justify-center font-bold text-gray-500 text-xs sm:text-base shadow-md"
-              >
-                Brand {brand}
-              </motion.div>
-            ))}
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
+              Our Clients
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 items-center">
+              {[1, 2, 3, 4].map((brand, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ y: 40, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="w-24 h-10 sm:w-28 sm:h-12 bg-gray-200/80 rounded flex items-center justify-center font-bold text-gray-500 text-xs sm:text-base shadow-md"
+                >
+                  Brand {brand}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section> */}
+        </section> */}
 
       {/* Testimonials Section */}
       <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="testimonials">
@@ -338,43 +339,43 @@ const AgencySections = () => {
         </div>
       </section>
 
-      {/* Blog/Insights Section (Dynamic)
-      <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="blog">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
-            Insights & Blog
-          </h2>
-          {loadingBlogs ? (
-            <div>Loading blog posts...</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
-              {blogPosts.length === 0 ? (
-                <div className="col-span-full text-gray-500">No blog posts found.</div>
-              ) : (
-                blogPosts.map((blog, idx) => (
-                  <AgencyCard key={blog._id || idx} delay={idx * 0.1} className="min-h-[180px] flex flex-col justify-between items-center">
-                    <div className="flex flex-col items-center text-center">
-                      <h3
-                        className="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-black"
-                        style={{ transform: "translateZ(20px)" }}
-                      >
-                        {blog.title}
-                      </h3>
-                      <p
-                        className="text-black text-xs sm:text-sm md:text-base mb-4 flex-grow line-clamp-2"
-                        style={{ transform: "translateZ(10px)" }}
-                      >
-                        {blog.content?.slice(0, 120) || ""}
-                        {blog.content && blog.content.length > 120 ? "..." : ""}
-                      </p>
-                    </div>
-                  </AgencyCard>
-                ))
-              )}
-            </div>
-          )}
-        </div>
-      </section> */}
+      {/* Blog/Insights Section (Dynamic) - Still commented out, but now clean from API calls */}
+      {/* <section className="w-full py-16 px-4 sm:py-20 sm:px-6 md:px-8 bg-transparent" id="blog">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-10 text-gray-900">
+              Insights & Blog
+            </h2>
+            {loadingBlogs ? (
+              <div>Loading blog posts...</div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                {blogPosts.length === 0 ? (
+                  <div className="col-span-full text-gray-500">No blog posts found.</div>
+                ) : (
+                  blogPosts.map((blog, idx) => (
+                    <AgencyCard key={blog._id || idx} delay={idx * 0.1} className="min-h-[180px] flex flex-col justify-between items-center">
+                      <div className="flex flex-col items-center text-center">
+                        <h3
+                          className="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-black"
+                          style={{ transform: "translateZ(20px)" }}
+                        >
+                          {blog.title}
+                        </h3>
+                        <p
+                          className="text-black text-xs sm:text-sm md:text-base mb-4 flex-grow line-clamp-2"
+                          style={{ transform: "translateZ(10px)" }}
+                        >
+                          {blog.content?.slice(0, 120) || ""}
+                          {blog.content && blog.content.length > 120 ? "..." : ""}
+                        </p>
+                      </div>
+                    </AgencyCard>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+        </section> */}
     </>
   );
 };
