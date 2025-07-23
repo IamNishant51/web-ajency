@@ -27,13 +27,15 @@ function MobileDockItem({ children, onClick, label, className = "" }) {
                   border border-gray-200/20 shadow-lg transition-all duration-150 
                   active:scale-95 active:bg-white/20 ${className}`}
       style={{
-        width: '44px',
-        height: '44px',
+        width: '36px',
+        height: '36px',
+        minWidth: '36px',
+        minHeight: '36px',
       }}
       whileTap={{ scale: 0.95 }}
       aria-label={label}
     >
-      <div className="flex items-center justify-center text-gray-300 text-lg">
+      <div className="flex items-center justify-center text-gray-300 text-base">
         {children}
       </div>
     </motion.button>
@@ -225,9 +227,9 @@ const NavBar = ({
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-[999] px-4 w-full max-w-sm pointer-events-none">
+      <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-[999] px-2 w-full max-w-xs pointer-events-none">
         <div className="flex items-center justify-between bg-white/10 backdrop-blur-xl border border-gray-200/20 
-                        rounded-2xl px-3 py-3 shadow-xl gap-2 overflow-x-auto scrollbar-hide pointer-events-auto">
+                        rounded-2xl px-1.5 py-2 shadow-xl gap-1 overflow-x-auto scrollbar-hide pointer-events-auto">
           {items.map((item, index) => (
             <MobileDockItem
               key={index}
